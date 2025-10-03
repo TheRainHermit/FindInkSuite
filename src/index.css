@@ -8,37 +8,17 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 240 10% 8%;
-    --foreground: 0 0% 98%;
-
-    --card: 240 8% 12%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 8% 10%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 290 80% 55%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 290 90% 65%;
-
-    --secondary: 200 100% 50%;
-    --secondary-foreground: 0 0% 100%;
-    --secondary-glow: 200 100% 60%;
-
-    --muted: 240 5% 20%;
-    --muted-foreground: 240 5% 65%;
-
-    --accent: 290 80% 55%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 8% 20%;
-    --input: 240 8% 20%;
-    --ring: 290 80% 55%;
-
-    --radius: 0.75rem;
+    --background: 220 10% 10%;           /* #18181b */
+    --foreground: 0 0% 100%;             /* #fff */
+    --muted: 240 6% 15%;                 /* #232329 */
+    --muted-foreground: 0 0% 70%;        /* #b3b3b3 */
+    --border: 240 6% 15%;                /* #232329 */
+    --primary: 162 100% 50%;             /* #00ffb2 */
+    --primary-foreground: 0 0% 10%;      /* #18181b */
+    --secondary: 188 100% 50%;           /* #00cfff */
+    --secondary-foreground: 0 0% 10%;    /* #18181b */
+    --card: 220 10% 10%;                 /* #18181b */
+    --card-foreground: 0 0% 100%;        /* #fff */
 
     /* Custom gradients for tattoo app */
     --gradient-primary: linear-gradient(135deg, hsl(290 80% 55%), hsl(290 90% 65%));
