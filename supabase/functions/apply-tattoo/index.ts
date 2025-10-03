@@ -12,86 +12,67 @@ serve(async (req) => {
 
   try {
     const { bodyImage, tattooDesign } = await req.json();
-    
+
     if (!bodyImage || !tattooDesign) {
       throw new Error("Both body image and tattoo design are required");
     }
 
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY is not configured");
+    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
+    if (!GEMINI_API_KEY) {
+      throw new Error("GEMINI_API_KEY is not configured");
     }
 
-    console.log("Applying tattoo with AI...");
-
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
-        messages: [
-          {
-            role: "user",
-            content: [
-              {
-                type: "text",
-                text: "Apply this tattoo design naturally onto the body part shown in the first image. Make it look realistic as if it was professionally tattooed on the skin. Maintain the tattoo design style and ensure it follows the body contours naturally. The tattoo should look like it's part of the skin with proper shading and depth.",
-              },
-              {
-                type: "image_url",
-                image_url: {
-                  url: bodyImage,
+    // Llama a Gemini Pro Vision API
+    const geminiResponse = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=" + GEMINI_API_KEY,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: "Aplica este diseño de tatuaje de forma realista sobre la parte del cuerpo mostrada en la primera imagen. El tatuaje debe verse natural, siguiendo los contornos y la textura de la piel.",
                 },
-              },
-              {
-                type: "image_url",
-                image_url: {
-                  url: tattooDesign,
+                {
+                  inlineData: {
+                    mimeType: "image/png",
+                    data: bodyImage.replace(/^data:image\/\w+;base64,/, ""),
+                  },
                 },
-              },
-            ],
-          },
-        ],
-        modalities: ["image", "text"],
-      }),
-    });
+                {
+                  inlineData: {
+                    mimeType: "image/png",
+                    data: tattooDesign.replace(/^data:image\/\w+;base64,/, ""),
+                  },
+                },
+              ],
+            },
+          ],
+        }),
+      }
+    );
 
-    if (!response.ok) {
-      if (response.status === 429) {
-        return new Response(
-          JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
-          {
-            status: 429,
-            headers: { ...corsHeaders, "Content-Type": "application/json" },
-          }
-        );
-      }
-      if (response.status === 402) {
-        return new Response(
-          JSON.stringify({ error: "Payment required. Please add credits to your workspace." }),
-          {
-            status: 402,
-            headers: { ...corsHeaders, "Content-Type": "application/json" },
-          }
-        );
-      }
-      const errorText = await response.text();
-      console.error("AI gateway error:", response.status, errorText);
-      throw new Error("AI gateway error");
+    if (!geminiResponse.ok) {
+      const errorText = await geminiResponse.text();
+      console.error("Gemini API error:", geminiResponse.status, errorText);
+      throw new Error("Gemini API error: " + errorText);
     }
 
-    const data = await response.json();
-    const generatedImage = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+    const geminiData = await geminiResponse.json();
+
+    // Busca la imagen generada en la respuesta
+    const generatedImage =
+      geminiData.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData)?.inlineData?.data;
 
     if (!generatedImage) {
       throw new Error("No image was generated");
     }
 
+    // Devuelve la imagen en base64 (puedes agregar el prefijo si lo necesitas en el frontend)
     return new Response(
-      JSON.stringify({ image: generatedImage }),
+      JSON.stringify({ image: "data:image/png;base64," + generatedImage }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       }
