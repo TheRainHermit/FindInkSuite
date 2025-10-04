@@ -17,74 +17,52 @@ serve(async (req) => {
       throw new Error("Both body image and tattoo design are required");
     }
 
-    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
-    if (!GEMINI_API_KEY) {
-      throw new Error("GEMINI_API_KEY is not configured");
+    const REPLICATE_API_TOKEN = Deno.env.get("REPLICATE_API_TOKEN");
+    if (!REPLICATE_API_TOKEN) {
+      throw new Error("REPLICATE_API_TOKEN is not configured");
     }
 
-    // Llama a Gemini Pro Vision API
-    const geminiResponse = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=" + GEMINI_API_KEY,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: "Aplica este diseño de tatuaje de forma realista sobre la parte del cuerpo mostrada en la primera imagen. El tatuaje debe verse natural, siguiendo los contornos y la textura de la piel.",
-                },
-                {
-                  inlineData: {
-                    mimeType: "image/png",
-                    data: bodyImage.replace(/^data:image\/\w+;base64,/, ""),
-                  },
-                },
-                {
-                  inlineData: {
-                    mimeType: "image/png",
-                    data: tattooDesign.replace(/^data:image\/\w+;base64,/, ""),
-                  },
-                },
-              ],
-            },
-          ],
-        }),
-      }
-    );
+    // Llama a Replicate ControlNet
+    const replicateResponse = await fetch("https://api.replicate.com/v1/predictions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Token ${REPLICATE_API_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        version: "1b819b7cfae3e8c8e3e8c8e3e8c8e3e8c8e3e8c8e3e8c8e3e8c8e3e8c8e3e8c8", // Usa la versión del modelo ControlNet que elijas
+        input: {
+          image: bodyImage, // base64 o URL
+          conditioning_image: tattooDesign, // base64 o URL
+          // Puedes ajustar los parámetros según el modelo
+          prompt: "Aplica el diseño del tatuaje de forma realista sobre la piel.",
+        },
+      }),
+    });
 
-    if (!geminiResponse.ok) {
-      const errorText = await geminiResponse.text();
-      console.error("Gemini API error:", geminiResponse.status, errorText);
-      throw new Error("Gemini API error: " + errorText);
+    if (!replicateResponse.ok) {
+      const errorText = await replicateResponse.text();
+      throw new Error("Replicate API error: " + errorText);
     }
 
-    const geminiData = await geminiResponse.json();
+    const replicateData = await replicateResponse.json();
 
-    // Busca la imagen generada en la respuesta
-    const generatedImage =
-      geminiData.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData)?.inlineData?.data;
+    // Replicate responde con una URL de la imagen generada
+    const outputUrl = replicateData?.output?.[0] || replicateData?.output;
 
-    if (!generatedImage) {
+    if (!outputUrl) {
       throw new Error("No image was generated");
     }
 
-    // Devuelve la imagen en base64 (puedes agregar el prefijo si lo necesitas en el frontend)
-    return new Response(
-      JSON.stringify({ image: "data:image/png;base64," + generatedImage }),
-      {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
-    );
+    return new Response(JSON.stringify({ image: outputUrl }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (error) {
-    console.error("Error in apply-tattoo function:", error);
-    return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
-    );
+    return new Response(JSON.stringify({
+      error: error instanceof Error ? error.message : "Unknown error"
+    }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
