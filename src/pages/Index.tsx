@@ -42,7 +42,15 @@ const Index = () => {
             loading="lazy"
             className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
+          {/* Degradado verdoso/azulado */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "var(--gradient-hero)",
+              opacity: 0.65,
+              pointerEvents: "none",
+            }}
+          />
         </div>
 
         {/* Content */}
@@ -53,7 +61,7 @@ const Index = () => {
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="inline-block">
               <span
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 text-sm font-medium mb-6"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/0 text-foreground border border-primary/10 text-sm font-medium mb-6"
                 role="status"
                 aria-live="polite"
               >
@@ -62,19 +70,18 @@ const Index = () => {
             </div>
 
             <h1
-              className="text-5xl md:text-7xl font-bold leading-tight"
+              className="text-5xl md:text-7xl font-bold leading-tight drop-shadow-lg"
               role="heading"
               aria-level={1}
             >
               {t("heroTitle1")}
-              <span className="bg-gradient-to-r from-primary via-secondary to-primary-glow bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary via-secondary to-primary-glow bg-clip-text text-transparent drop-shadow-lg">
                 {t("heroTitle2")}
               </span>
               <br />
               {t("heroTitle3")}
             </h1>
-
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto drop-shadow">
               {t("heroDesc")}
             </p>
 
@@ -83,14 +90,20 @@ const Index = () => {
                 size="lg"
                 onClick={handleShowWizard}
                 aria-label={t("tryNow")}
-                className="text-lg px-8 py-6 bg-gradient-to-r from-primary via-secondary to-primary-glow hover:shadow-[0_0_30px_hsl(var(--primary)/0.6)] transition-all"
+                className="
+                  px-8 py-3 font-bold
+                  text-black
+                  bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))]
+                  shadow-lg transition hover:brightness-110
+                  border-none
+                "
               >
                 {t("tryNow")}
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="text-lg px-8 py-6 border-2"
+                className="px-8 py-3 font-bold text-[hsl(var(--card-foreground))] bg-card border border-border hover:bg-muted transition"
                 onClick={() => setShowExamples(true)}
                 aria-label={t("seeExamples")}
               >
@@ -105,7 +118,7 @@ const Index = () => {
               aria-label={t("statsLabel")}
             >
               <div className="space-y-2" role="listitem">
-                <div className="text-3xl md:text-4xl font-bold text-primary">
+                <div className="text-3xl md:text-4xl font-bold text-foreground">
                   98%
                 </div>
                 <div className="text-sm text-muted-foreground">
@@ -113,7 +126,7 @@ const Index = () => {
                 </div>
               </div>
               <div className="space-y-2" role="listitem">
-                <div className="text-3xl md:text-4xl font-bold text-secondary">
+                <div className="text-3xl md:text-4xl font-bold text-foreground">
                   50K+
                 </div>
                 <div className="text-sm text-muted-foreground">
@@ -121,7 +134,7 @@ const Index = () => {
                 </div>
               </div>
               <div className="space-y-2" role="listitem">
-                <div className="text-3xl md:text-4xl font-bold text-primary">
+                <div className="text-3xl md:text-4xl font-bold text-foreground">
                   4.9★
                 </div>
                 <div className="text-sm text-muted-foreground">
@@ -186,7 +199,7 @@ const Index = () => {
             aria-label={t("featuresListLabel")}
           >
             <div
-              className="p-8 rounded-xl bg-card border border-border hover:border-primary/50 transition-all group"
+              className="p-8 rounded-xl bg-card border border-border hover:border-primary/70 transition-all group"
               role="listitem"
             >
               <div
@@ -236,7 +249,7 @@ const Index = () => {
         role="region"
         aria-label={t("ctaSectionLabel")}
       >
-        <div className="container mx-auto max-w-4xl text-center">
+        <div className="container mx-auto max-w-4xl text-center ">
           <div className="p-12 rounded-2xl bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/20 border border-primary/30 relative overflow-hidden">
             <div
               className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 blur-3xl"
@@ -257,7 +270,13 @@ const Index = () => {
                 size="lg"
                 onClick={handleShowWizard}
                 aria-label={t("ctaButton")}
-                className="text-lg px-8 py-6 bg-gradient-to-r from-primary via-secondary to-primary-glow hover:shadow-[0_0_40px_hsl(var(--primary)/0.7)] transition-all"
+                className="
+                  px-8 py-3 font-bold
+                  text-black
+                  bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))]
+                  shadow-lg transition hover:brightness-110
+                  border-none
+                "
               >
                 {t("ctaButton")}
               </Button>

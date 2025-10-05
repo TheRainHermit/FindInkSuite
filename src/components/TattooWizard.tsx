@@ -23,39 +23,99 @@ const TattooWizard = () => {
   const [tattooDesign, setTattooDesign] = useState<string | null>(null);
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [tattooPrompt, setTattooPrompt] = useState<string>("");
 
-  const handleBodyImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBodyImageUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 10 * 1024 * 1024) {
         toast.error("La imagen no debe superar los 10MB");
         return;
       }
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setBodyImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      try {
+        // Subir imagen al storage de Supabase
+        const { data, error } = await supabase.storage
+          .from("tattoo-images")
+          .upload(`body/${Date.now()}_${file.name}`, file);
+
+        console.log("Upload result:", { data, error });
+
+        if (error) {
+          throw error;
+        }
+
+        if (!data || !data.path) {
+          setError("No se pudo obtener la URL de la imagen subida.");
+          toast.error("No se pudo obtener la URL de la imagen subida.");
+          return;
+        }
+
+        // CORRECTO: getPublicUrl retorna un objeto { publicUrl: string }
+        const { data: urlData } = supabase.storage
+          .from("tattoo-images")
+          .getPublicUrl(data.path);
+
+        const publicUrl = urlData?.publicUrl;
+
+        console.log("Body image URL:", publicUrl);
+
+        setBodyImage(publicUrl);
+      } catch (error) {
+        setError(t("wizardGlobalError"));
+        console.error("Error uploading body image:", error);
+        toast.error(t("wizardGlobalError"));
+      }
     }
   };
 
-  const handleTattooDesignUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTattooDesignUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 10 * 1024 * 1024) {
         toast.error(t("imageTooLarge"));
         return;
       }
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setTattooDesign(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      try {
+        // Subir diseño al storage de Supabase
+        const { data, error } = await supabase.storage
+          .from("tattoo-images")
+          .upload(`design/${Date.now()}_${file.name}`, file);
+
+        console.log("Upload result (design):", { data, error });
+
+        if (error) {
+          throw error;
+        }
+
+        if (!data || !data.path) {
+          setError("No se pudo obtener la URL del diseño subido.");
+          toast.error("No se pudo obtener la URL del diseño subido.");
+          return;
+        }
+
+        const { data: urlData } = supabase.storage
+          .from("tattoo-images")
+          .getPublicUrl(data.path);
+
+        const publicUrl = urlData?.publicUrl;
+
+        console.log("Tattoo design URL:", publicUrl);
+
+        setTattooDesign(publicUrl);
+      } catch (error) {
+        setError(t("wizardGlobalError"));
+        console.error("Error uploading tattoo design:", error);
+        toast.error(t("wizardGlobalError"));
+      }
     }
   };
 
   const handleGenerate = async () => {
-    if (!bodyImage || !tattooDesign) {
+    if (!bodyImage || tattooPrompt.trim().length < 15) {
       toast.error(t("wizardMissingImages"));
       setError(t("wizardMissingImages"));
       return;
@@ -66,7 +126,7 @@ const TattooWizard = () => {
       const { data, error } = await supabase.functions.invoke("apply-tattoo", {
         body: {
           bodyImage,
-          tattooDesign,
+          tattooPrompt,
         },
       });
 
@@ -223,7 +283,7 @@ const TattooWizard = () => {
           aria-label={t("chooseDesignTitle")}
         >
           <div className="text-center mb-8">
-            <ImageIcon
+            <Sparkles
               className="w-16 h-16 mx-auto mb-4 text-secondary"
               aria-hidden="true"
             />
@@ -235,82 +295,63 @@ const TattooWizard = () => {
               {t("chooseDesignTitle")}
             </h2>
             <p className="text-muted-foreground">
-              {t("chooseDesignDescription")}
+              Describe el diseño del tatuaje que quieres visualizar sobre tu
+              piel.
             </p>
           </div>
-          <div className="space-y-6">
-            {!tattooDesign ? (
-              <label className="block" htmlFor="tattoo-design-upload">
-                <div className="border-2 border-dashed border-border rounded-lg p-12 text-center cursor-pointer hover:border-secondary transition-all hover:bg-muted/50">
-                  <ImageIcon
-                    className="w-12 h-12 mx-auto mb-4 text-muted-foreground"
-                    aria-hidden="true"
-                  />
-                  <p className="text-muted-foreground mb-2">
-                    {t("clickToUploadDesign")}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {t("imageFormats")}
-                  </p>
-                </div>
-                <input
-                  id="tattoo-design-upload"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleTattooDesignUpload}
-                  className="hidden"
-                  aria-label={t("chooseDesignTitle")}
-                />
-              </label>
-            ) : (
-              <div className="space-y-4">
-                <img
-                  src={tattooDesign}
-                  alt={t("tattooDesignAlt")}
-                  loading="lazy"
-                  className="w-full max-h-96 object-contain rounded-lg bg-white p-4"
-                />
-                <div className="flex gap-4">
-                  <Button
-                    variant="outline"
-                    onClick={() => setStep(1)}
-                    aria-label={t("back")}
-                  >
-                    <ArrowLeft className="mr-2 w-4 h-4" aria-hidden="true" />{" "}
-                    {t("back")}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => setTattooDesign(null)}
-                    className="flex-1"
-                    aria-label={t("changeDesign")}
-                  >
-                    {t("changeDesign")}
-                  </Button>
-                  <Button
-                    onClick={handleGenerate}
-                    disabled={isProcessing}
-                    className="flex-1 bg-gradient-to-r from-secondary via-primary to-secondary-glow"
-                    aria-label={t("generatePreview")}
-                  >
-                    {isProcessing ? (
-                      <>
-                        <Sparkles
-                          className="mr-2 w-4 h-4 animate-spin"
-                          aria-hidden="true"
-                        />
-                        {t("generating")}
-                      </>
-                    ) : (
-                      <>
-                        <Sparkles className="mr-2 w-4 h-4" aria-hidden="true" />
-                        {t("generatePreview")}
-                      </>
-                    )}
-                  </Button>
-                </div>
-              </div>
-            )}
+          <div>
+            <label
+              htmlFor="tattooPrompt"
+              className="block text-sm font-medium text-muted-foreground mb-2"
+            >
+              {t("tattooPromptLabel")}
+            </label>
+            <textarea
+              id="tattooPrompt"
+              value={tattooPrompt}
+              onChange={(e) => setTattooPrompt(e.target.value)}
+              placeholder={t("tattooPromptPlaceholder")}
+              rows={4}
+              className="w-full p-2 rounded-md bg-muted text-foreground placeholder:text-muted-foreground border focus:ring-2 focus:ring-primary focus:outline-none"
+              aria-label={t("tattooPromptLabel")}
+            />
+            <div className="text-xs text-muted-foreground mt-2">
+              {t("tattooPromptExamples")}
+              <ul className="list-disc ml-4">
+                <li>{t("tattooPromptExample1")}</li>
+                <li>{t("tattooPromptExample2")}</li>
+                <li>{t("tattooPromptExample3")}</li>
+              </ul>
+            </div>
+            <div className="flex items-center justify-between mt-8">
+              <Button
+                onClick={handleGenerate}
+                disabled={
+                  isProcessing || !bodyImage || tattooPrompt.trim().length < 15
+                }
+                className={`w-full bg-gradient-to-r from-primary to-primary-glow flex items-center justify-center gap-2 ${
+                  isProcessing ? "opacity-60 cursor-not-allowed" : ""
+                }`}
+                aria-label={t("generatePreview")}
+              >
+                {isProcessing ? (
+                  <>
+                    <span className="animate-spin mr-2">
+                      <Sparkles className="w-5 h-5" aria-hidden="true" />
+                    </span>
+                    Generando...
+                  </>
+                ) : (
+                  t("generatePreview")
+                )}
+              </Button>
+            </div>
+            {tattooPrompt.trim().length > 0 &&
+              tattooPrompt.trim().length < 15 && (
+                <p className="text-xs text-warning mt-2">
+                  {t("tattooPromptWarning")}
+                </p>
+              )}
           </div>
         </Card>
       )}
@@ -373,6 +414,9 @@ const TattooWizard = () => {
                 {t("downloadImage")}
               </Button>
             </div>
+          </div>
+          <div className="mt-4 text-sm text-muted-foreground">
+            <strong>Prompt usado:</strong> {tattooPrompt}
           </div>
         </Card>
       )}

@@ -93,6 +93,52 @@ i18n.use(initReactI18next).init({
         changeDesign: "Cambiar diseño",
         generatePreview: "Generar vista previa",
         generating: "Generando...",
+        tattooPromptLabel: "Describe el diseño del tatuaje",
+        tattooPromptPlaceholder:
+          "Ejemplo: Tatuaje de dragón tribal negro en el antebrazo, estilo realista, tamaño mediano, siguiendo los contornos del músculo.",
+        tattooPromptExamples: "Ejemplos:",
+        tattooPromptExample1: "Rosa roja realista en el hombro",
+        tattooPromptExample2:
+          "Dragón tribal negro en el antebrazo, estilo sombreado",
+        tattooPromptExample3: "Tatuaje minimalista de montaña en la muñeca",
+        tattooPromptWarning:
+          "Por favor, describe el tatuaje con más detalle para mejores resultados.",
+        privacyPolicyTitle: "Política de Privacidad",
+        privacyPolicyIntro:
+          "Tu privacidad es importante para nosotros. Esta política explica cómo recopilamos, usamos y protegemos tu información.",
+        privacyPolicySection1Title: "Información que recopilamos",
+        privacyPolicySection1Content:
+          "Recopilamos información que nos proporcionas al usar la plataforma, como tu correo electrónico, imágenes subidas y preferencias de idioma.",
+        privacyPolicySection2Title: "Uso de la información",
+        privacyPolicySection2Content:
+          "Utilizamos tu información para mejorar la experiencia, personalizar resultados y garantizar la seguridad de la plataforma.",
+        privacyPolicySection3Title: "Protección de datos",
+        privacyPolicySection3Content:
+          "Implementamos medidas de seguridad para proteger tus datos y nunca compartimos tu información con terceros sin tu consentimiento.",
+        privacyPolicySection4Title: "Tus derechos",
+        privacyPolicySection4Content:
+          "Puedes solicitar la eliminación o modificación de tus datos en cualquier momento contactándonos a info@findink.co.",
+        privacyPolicySection5Title: "Cambios en la política",
+        privacyPolicySection5Content:
+          "Nos reservamos el derecho de modificar esta política. Te notificaremos sobre cambios importantes.",
+        termsOfUseTitle: "Términos de Uso",
+        termsOfUseIntro:
+          "Al usar Tattoo Vision AI, aceptas los siguientes términos y condiciones.",
+        termsOfUseSection1Title: "Uso de la plataforma",
+        termsOfUseSection1Content:
+          "La plataforma está destinada únicamente para fines personales y no comerciales. No está permitido el uso indebido o la distribución de contenido generado.",
+        termsOfUseSection2Title: "Propiedad intelectual",
+        termsOfUseSection2Content:
+          "Todos los derechos sobre el software, diseño y contenido pertenecen a Tattoo Vision AI y FindInk.",
+        termsOfUseSection3Title: "Limitación de responsabilidad",
+        termsOfUseSection3Content:
+          "No garantizamos la precisión de los resultados generados por IA. El uso de la plataforma es bajo tu propio riesgo.",
+        termsOfUseSection4Title: "Modificaciones",
+        termsOfUseSection4Content:
+          "Podemos modificar estos términos en cualquier momento. El uso continuado implica aceptación de los cambios.",
+        termsOfUseSection5Title: "Contacto",
+        termsOfUseSection5Content:
+          "Para dudas o reclamaciones, contáctanos en info@findink.co.",
         // ...otros textos
       },
     },
@@ -186,7 +232,51 @@ i18n.use(initReactI18next).init({
         changeDesign: "Change Design",
         generatePreview: "Generate Preview",
         generating: "Generating...",
-
+        tattooPromptLabel: "Describe the tattoo design",
+        tattooPromptPlaceholder:
+          "Example: Black tribal dragon tattoo on forearm, realistic style, medium size, following muscle contours.",
+        tattooPromptExamples: "Examples:",
+        tattooPromptExample1: "Realistic red rose on shoulder",
+        tattooPromptExample2: "Black tribal dragon on forearm, shading style",
+        tattooPromptExample3: "Minimalist mountain tattoo on wrist",
+        tattooPromptWarning:
+          "Please describe the tattoo in more detail for better results.",
+        privacyPolicyTitle: "Privacy Policy",
+        privacyPolicyIntro:
+          "Your privacy is important to us. This policy explains how we collect, use, and protect your information.",
+        privacyPolicySection1Title: "Information We Collect",
+        privacyPolicySection1Content:
+          "We collect information you provide when using the platform, such as your email, uploaded images, and language preferences.",
+        privacyPolicySection2Title: "Use of Information",
+        privacyPolicySection2Content:
+          "We use your information to improve the experience, personalize results, and ensure platform security.",
+        privacyPolicySection3Title: "Data Protection",
+        privacyPolicySection3Content:
+          "We implement security measures to protect your data and never share your information with third parties without your consent.",
+        privacyPolicySection4Title: "Your Rights",
+        privacyPolicySection4Content:
+          "You may request deletion or modification of your data at any time by contacting info@findink.co.",
+        privacyPolicySection5Title: "Policy Changes",
+        privacyPolicySection5Content:
+          "We reserve the right to modify this policy. We will notify you of significant changes.",
+        termsOfUseTitle: "Terms of Use",
+        termsOfUseIntro:
+          "By using Tattoo Vision AI, you agree to the following terms and conditions.",
+        termsOfUseSection1Title: "Platform Use",
+        termsOfUseSection1Content:
+          "The platform is intended for personal, non-commercial use only. Misuse or distribution of generated content is not allowed.",
+        termsOfUseSection2Title: "Intellectual Property",
+        termsOfUseSection2Content:
+          "All rights to the software, design, and content belong to Tattoo Vision AI and FindInk.",
+        termsOfUseSection3Title: "Limitation of Liability",
+        termsOfUseSection3Content:
+          "We do not guarantee the accuracy of AI-generated results. Use of the platform is at your own risk.",
+        termsOfUseSection4Title: "Modifications",
+        termsOfUseSection4Content:
+          "We may modify these terms at any time. Continued use implies acceptance of changes.",
+        termsOfUseSection5Title: "Contact",
+        termsOfUseSection5Content:
+          "For questions or claims, contact us at info@findink.co.",
         // ...other texts
       },
     },

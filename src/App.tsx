@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,6 +8,8 @@ const Index = React.lazy(() => import("./pages/Index"));
 // Make sure the file exists at the specified path, or update the import path if the file is named differently, e.g. Contacto
 const Contact = React.lazy(() => import("./pages/Contact"));
 const Gallery = React.lazy(() => import("./pages/Gallery"));
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfUse from "./pages/TermsOfUse";
 import NotFound from "./pages/NotFound";
 import { ErrorProvider, useError } from "@/context/ErrorContext";
 import { useTranslation } from "react-i18next";
@@ -32,6 +34,15 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const { t } = useTranslation();
+
+  useEffect(() => {
+  // Si no hay preferencia guardada, activa modo oscuro por defecto
+  const theme = localStorage.getItem("theme");
+  if (!theme) {
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  }
+  }, []);
 
   return (
     <ErrorProvider>
@@ -62,6 +73,22 @@ const App = () => {
               element={
                 <Suspense fallback={<div>{t("loading")}</div>}>
                   <Gallery />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/privacidad"
+              element={
+                <Suspense fallback={<div>{t("loading")}</div>}>
+                  <PrivacyPolicy />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/terminos"
+              element={
+                <Suspense fallback={<div>{t("loading")}</div>}>
+                  <TermsOfUse />
                 </Suspense>
               }
             />

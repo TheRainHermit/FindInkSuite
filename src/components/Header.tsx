@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import ThemeSwitch from "@/components/ThemeSwitch";
 
 const Header = () => {
   const { i18n, t } = useTranslation();
@@ -8,10 +9,12 @@ const Header = () => {
     <header
       role="navigation"
       aria-label={t("headerNavigation")}
-      className="w-full py-6 px-4 border-b border-border bg-background shadow-sm"
+      className="w-full flex items-center justify-between px-6 py-4 bg-card border-b border-border"
     >
-      <div className="container mx-auto flex justify-between items-center">
-        <span className="font-bold text-xl text-primary">Tattoo Vision AI</span>
+      <img src="/logo.jpg" alt="Logo" className="h-10 w-10 mr-3" />
+      <span className="font-bold text-xl text-foreground">Tattoo Vision AI</span>
+      <div className="container mx-auto flex justify-center items-center">
+        
         <nav className="flex gap-8" aria-label={t("mainNavigation")}>
           <Link
             to="/"
@@ -32,7 +35,10 @@ const Header = () => {
             {t("contact")}
           </Link>
         </nav>
-        <label htmlFor="language-select" className="sr-only">
+        
+      </div>
+      <div className="flex items-center px-9">
+      <label htmlFor="language-select" className="sr-only">
           {t("selectLanguage")}
         </label>
         <select
@@ -45,7 +51,8 @@ const Header = () => {
           <option value="es">ES</option>
           <option value="en">EN</option>
         </select>
-      </div>
+        </div>
+      <ThemeSwitch />
     </header>
   );
 };

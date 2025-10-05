@@ -6,7 +6,7 @@ const Footer = () => {
   const { t } = useTranslation();
 
   return (
-    <footer className="bg-muted py-12 px-4 border-t border-border">
+    <footer className="bg-muted py-12 px-4 border-t border-border bg-gradient-to-b from-background to-muted/30" >
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 items-start text-muted-foreground">
         {/* Columna 1: Logo */}
         <div className="flex flex-col items-center justify-center text-center h-full">

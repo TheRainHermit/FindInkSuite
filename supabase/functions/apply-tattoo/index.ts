@@ -11,10 +11,13 @@ serve(async (req) => {
   }
 
   try {
-    const { bodyImage, tattooDesign } = await req.json();
+    const { bodyImage, tattooPrompt } = await req.json();
 
-    if (!bodyImage || !tattooDesign) {
-      throw new Error("Both body image and tattoo design are required");
+    console.log("Received bodyImage:", bodyImage);
+    console.log("Received tattooPrompt:", tattooPrompt);
+
+    if (!bodyImage || !tattooPrompt) {
+      throw new Error("Both body image and tattoo prompt are required");
     }
 
     const REPLICATE_API_TOKEN = Deno.env.get("REPLICATE_API_TOKEN");
@@ -22,7 +25,11 @@ serve(async (req) => {
       throw new Error("REPLICATE_API_TOKEN is not configured");
     }
 
-    // Llama a Replicate ControlNet
+    // ID de versión real de stability-ai/stable-diffusion (cópialo de la pestaña API en Replicate)
+    const version = "ac732df83cea7fff18b8472768c88ad041fa750ff7682a21affe81863cbe77e4"; // <-- reemplaza por el ID real
+
+    console.log("Calling Replicate with:", { bodyImage, tattooPrompt, version });
+
     const replicateResponse = await fetch("https://api.replicate.com/v1/predictions", {
       method: "POST",
       headers: {
@@ -30,24 +37,24 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        version: "1b819b7cfae3e8c8e3e8c8e3e8c8e3e8c8e3e8c8e3e8c8e3e8c8e3e8c8e3e8c8", // Usa la versión del modelo ControlNet que elijas
+        version,
         input: {
-          image: bodyImage, // base64 o URL
-          conditioning_image: tattooDesign, // base64 o URL
-          // Puedes ajustar los parámetros según el modelo
-          prompt: "Aplica el diseño del tatuaje de forma realista sobre la piel.",
+          image: bodyImage, // URL pública de la imagen base
+          prompt: tattooPrompt, // descripción textual del tatuaje
         },
       }),
     });
 
     if (!replicateResponse.ok) {
       const errorText = await replicateResponse.text();
+      console.error("Replicate API error:", replicateResponse.status, errorText);
       throw new Error("Replicate API error: " + errorText);
     }
 
     const replicateData = await replicateResponse.json();
 
-    // Replicate responde con una URL de la imagen generada
+    console.log("Replicate response:", replicateData);
+
     const outputUrl = replicateData?.output?.[0] || replicateData?.output;
 
     if (!outputUrl) {
@@ -58,6 +65,7 @@ serve(async (req) => {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {
+    console.error("Error in apply-tattoo function:", error);
     return new Response(JSON.stringify({
       error: error instanceof Error ? error.message : "Unknown error"
     }), {
