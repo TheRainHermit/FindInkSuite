@@ -13,6 +13,7 @@ import TermsOfUse from "./pages/TermsOfUse";
 import NotFound from "./pages/NotFound";
 import { ErrorProvider, useError } from "@/context/ErrorContext";
 import { useTranslation } from "react-i18next";
+import ApiTest from "./components/ApiTest";
 
 const GlobalError = () => {
   const { error, setError } = useError();
@@ -81,6 +82,14 @@ const App = () => {
               element={
                 <Suspense fallback={<div>{t("loading")}</div>}>
                   <PrivacyPolicy />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/api-test"
+              element={
+                <Suspense fallback={<div>{t("loading")}</div>}>
+                  <ApiTest />
                 </Suspense>
               }
             />

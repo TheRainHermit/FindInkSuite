@@ -139,6 +139,7 @@ i18n.use(initReactI18next).init({
         termsOfUseSection5Title: "Contacto",
         termsOfUseSection5Content:
           "Para dudas o reclamaciones, contáctanos en info@findink.co.",
+          apiTest: "Prueba de API",
         // ...otros textos
       },
     },
@@ -277,6 +278,7 @@ i18n.use(initReactI18next).init({
         termsOfUseSection5Title: "Contact",
         termsOfUseSection5Content:
           "For questions or claims, contact us at info@findink.co.",
+          apiTest: "API Test",
         // ...other texts
       },
     },
