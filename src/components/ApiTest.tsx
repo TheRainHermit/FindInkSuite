@@ -9,7 +9,7 @@ const ApiTest = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("https://c7601bf98a96.ngrok-free.app/status", {
+      const response = await fetch("https://tattoo-hackathon-1006.loca.lt/status", {
         headers: {
           Accept: "application/json",
         },
