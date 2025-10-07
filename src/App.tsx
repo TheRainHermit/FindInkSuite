@@ -4,16 +4,20 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Routes, Route } from "react-router-dom";
-const Index = React.lazy(() => import("./pages/Index"));
-// Make sure the file exists at the specified path, or update the import path if the file is named differently, e.g. Contacto
-const Contact = React.lazy(() => import("./pages/Contact"));
-const Gallery = React.lazy(() => import("./pages/Gallery"));
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfUse from "./pages/TermsOfUse";
+const Index = React.lazy(() => import("./pages/FindInkTattooVision/Index"));
+const Contact = React.lazy(() => import("./pages/FindInkTattooVision/Contact"));
+const Gallery = React.lazy(() => import("./pages/FindInkTattooVision/Gallery"));
+import PrivacyPolicy from "./pages/FindInkTattooVision/PrivacyPolicy";
+import TermsOfUse from "./pages/FindInkTattooVision/TermsOfUse";
 import NotFound from "./pages/NotFound";
 import { ErrorProvider, useError } from "@/context/ErrorContext";
 import { useTranslation } from "react-i18next";
 import ApiTest from "./components/ApiTest";
+import Dashboard from "./pages/FindInkInkFlowCRMAI/Dashboard";
+import Clients from "./pages/FindInkInkFlowCRMAI/Clients";
+import CalendarPage from "./pages/FindInkInkFlowCRMAI/CalendarPage";
+import Assistant from "./pages/FindInkInkFlowCRMAI/Assistant";
+import Portfolio from "./pages/FindInkInkFlowCRMAI/Portfolio";
 
 const GlobalError = () => {
   const { error, setError } = useError();
@@ -98,6 +102,46 @@ const App = () => {
               element={
                 <Suspense fallback={<div>{t("loading")}</div>}>
                   <TermsOfUse />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/assistant"
+              element={
+                <Suspense fallback={<div>{t("loading")}</div>}>
+                  <Assistant />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/clients"
+              element={
+                <Suspense fallback={<div>{t("loading")}</div>}>
+                  <Clients />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/calendar"
+              element={
+                <Suspense fallback={<div>{t("loading")}</div>}>
+                  <CalendarPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/portfolio"
+              element={
+                <Suspense fallback={<div>{t("loading")}</div>}>
+                  <Portfolio />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <Suspense fallback={<div>{t("loading")}</div>}>
+                  <Dashboard />
                 </Suspense>
               }
             />

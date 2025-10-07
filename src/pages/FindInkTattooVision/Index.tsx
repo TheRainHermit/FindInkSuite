@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Sparkles, Zap, Shield, Users } from "lucide-react";
 import React, { Suspense, useRef } from "react";
-const TattooWizard = React.lazy(() => import("@/components/TattooWizard"));
-import ExamplesGallery from "@/components/ExamplesGallery";
+const TattooWizard = React.lazy(() => import("@/components/FindInkTattooVision/TattooWizard"));
+import ExamplesGallery from "@/components/FindInkTattooVision/ExamplesGallery";
 import heroImage from "@/assets/hero-tattoo.jpg";
 import { useState } from "react";
 import Header from "@/components/Header";
