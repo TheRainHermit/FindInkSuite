@@ -18,6 +18,10 @@ import Clients from "./pages/FindInk_InkFlowCRMAI/Clients";
 import CalendarPage from "./pages/FindInk_InkFlowCRMAI/CalendarPage";
 import Assistant from "./pages/FindInk_InkFlowCRMAI/Assistant";
 import Portfolio from "./pages/FindInk_InkFlowCRMAI/Portfolio";
+import Home from "./pages/Home";
+import ApiTest2 from "./components/ApiTest2";
+//const TattoVision = React.lazy(() => import("./pages/FindInk_TattooVision/TattooVision");
+//const CRM = React.lazy(() => import("./pages/FindInk_InkFlowCRMAI/CRM");
 
 const GlobalError = () => {
   const { error, setError } = useError();
@@ -61,7 +65,7 @@ const App = () => {
               path="/"
               element={
                 <Suspense fallback={<div>{t("loading")}</div>}>
-                  <Index />
+                  <Home />
                 </Suspense>
               }
             />
@@ -94,6 +98,14 @@ const App = () => {
               element={
                 <Suspense fallback={<div>{t("loading")}</div>}>
                   <ApiTest />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/api-test2"
+              element={
+                <Suspense fallback={<div>{t("loading")}</div>}>
+                  <ApiTest2 />
                 </Suspense>
               }
             />
@@ -145,6 +157,7 @@ const App = () => {
                 </Suspense>
               }
             />
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
         </TooltipProvider>
