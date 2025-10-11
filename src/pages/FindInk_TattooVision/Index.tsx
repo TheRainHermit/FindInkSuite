@@ -61,7 +61,7 @@ const Index = () => {
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="inline-block">
               <span
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/0 text-foreground border border-primary/10 text-sm font-medium mb-6"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/0 text-foreground border border-primary/10 text-sm font-medium mb-6 "
                 role="status"
                 aria-live="polite"
               >

@@ -1,27 +1,17 @@
 import React, { Suspense, useEffect } from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Routes, Route } from "react-router-dom";
-const Index = React.lazy(() => import("./pages/FindInk_TattooVision/Index"));
-const Contact = React.lazy(() => import("./pages/FindInk_TattooVision/Contact"));
-const Gallery = React.lazy(() => import("./pages/FindInk_TattooVision/Gallery"));
-import PrivacyPolicy from "./pages/FindInk_TattooVision/PrivacyPolicy";
-import TermsOfUse from "./pages/FindInk_TattooVision/TermsOfUse";
-import NotFound from "./pages/NotFound";
-import { ErrorProvider, useError } from "@/context/ErrorContext";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import ApiTest from "./components/ApiTest";
-import Dashboard from "./pages/FindInk_InkFlowCRMAI/Dashboard";
-import Clients from "./pages/FindInk_InkFlowCRMAI/Clients";
-import CalendarPage from "./pages/FindInk_InkFlowCRMAI/CalendarPage";
-import Assistant from "./pages/FindInk_InkFlowCRMAI/Assistant";
-import Portfolio from "./pages/FindInk_InkFlowCRMAI/Portfolio";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/toaster";
+import { Sonner } from "@/components/ui/sonner";
+import { ErrorProvider, useError } from "./hooks/useError";
 import Home from "./pages/Home";
-import ApiTest2 from "./components/ApiTest2";
-//const TattoVision = React.lazy(() => import("./pages/FindInk_TattooVision/TattooVision");
-//const CRM = React.lazy(() => import("./pages/FindInk_InkFlowCRMAI/CRM");
+
+const TattooVision = React.lazy(
+  () => import("./pages/FindInk_TattooVision/Index")
+);
+const CRM = React.lazy(() => import("./pages/FindInk_InkFlowCRMAI/Dashboard"));
 
 const GlobalError = () => {
   const { error, setError } = useError();
@@ -45,12 +35,11 @@ const App = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-  // Si no hay preferencia guardada, activa modo oscuro por defecto
-  const theme = localStorage.getItem("theme");
-  if (!theme) {
-    document.documentElement.classList.add("dark");
-    localStorage.setItem("theme", "dark");
-  }
+    const theme = localStorage.getItem("theme");
+    if (!theme) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    }
   }, []);
 
   return (
@@ -60,106 +49,13 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Suspense fallback={<div>{t("loading")}</div>}>
-                  <Home />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/contacto"
-              element={
-                <Suspense fallback={<div>{t("loading")}</div>}>
-                  <Contact />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/galeria"
-              element={
-                <Suspense fallback={<div>{t("loading")}</div>}>
-                  <Gallery />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/privacidad"
-              element={
-                <Suspense fallback={<div>{t("loading")}</div>}>
-                  <PrivacyPolicy />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/api-test"
-              element={
-                <Suspense fallback={<div>{t("loading")}</div>}>
-                  <ApiTest />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/api-test2"
-              element={
-                <Suspense fallback={<div>{t("loading")}</div>}>
-                  <ApiTest2 />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/terminos"
-              element={
-                <Suspense fallback={<div>{t("loading")}</div>}>
-                  <TermsOfUse />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/assistant"
-              element={
-                <Suspense fallback={<div>{t("loading")}</div>}>
-                  <Assistant />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/clients"
-              element={
-                <Suspense fallback={<div>{t("loading")}</div>}>
-                  <Clients />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/calendar"
-              element={
-                <Suspense fallback={<div>{t("loading")}</div>}>
-                  <CalendarPage />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/portfolio"
-              element={
-                <Suspense fallback={<div>{t("loading")}</div>}>
-                  <Portfolio />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <Suspense fallback={<div>{t("loading")}</div>}>
-                  <Dashboard />
-                </Suspense>
-              }
-            />
-            
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<div>{t("loading")}</div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/tattoovision" element={<TattooVision />} />
+              <Route path="/crm" element={<CRM />} />
+            </Routes>
+          </Suspense>
         </TooltipProvider>
       </QueryClientProvider>
     </ErrorProvider>
