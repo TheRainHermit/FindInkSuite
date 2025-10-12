@@ -12,7 +12,7 @@ const Home: React.FC = () => {
   return (
     
     <div
-      className="min-h-screen flex flex-col items-center justify-center relative"
+      className="min-h-screen flex flex-col items-center justify-center relative animate-in fade-in duration-500"
       style={{
         background: "var(--gradient-hero)",
         transition: "var(--transition-smooth)",
