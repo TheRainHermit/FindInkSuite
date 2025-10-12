@@ -7,7 +7,25 @@ import { Toaster } from "@/components/ui/toaster";
 import { Sonner } from "@/components/ui/sonner";
 import { ErrorProvider, useError } from "./hooks/useError";
 import Home from "./pages/Home";
-
+const Layout = React.lazy(
+  () => import("./components/FindInk_InkFlowCRMAI/Layout")
+);
+const Dashboard = React.lazy(
+  () => import("./pages/FindInk_InkFlowCRMAI/Dashboard")
+);
+const Clients = React.lazy(
+  () => import("./pages/FindInk_InkFlowCRMAI/Clients")
+);
+const CalendarPage = React.lazy(
+  () => import("./pages/FindInk_InkFlowCRMAI/CalendarPage")
+);
+const Assistant = React.lazy(
+  () => import("./pages/FindInk_InkFlowCRMAI/Assistant")
+);
+const Portfolio = React.lazy(
+  () => import("./pages/FindInk_InkFlowCRMAI/Portfolio")
+);
+const NotFound = React.lazy(() => import("./pages/NotFound"));
 const TattooVision = React.lazy(
   () => import("./pages/FindInk_TattooVision/Index")
 );
@@ -53,7 +71,14 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/tattoovision" element={<TattooVision />} />
-              <Route path="/crm" element={<CRM />} />
+              <Route path="/crm" element={<Layout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="/crm/clients" element={<Clients />} />
+                <Route path="/crm/calendar" element={<CalendarPage />} />
+                <Route path="/crm/assistant" element={<Assistant />} />
+                <Route path="/crm/portfolio" element={<Portfolio />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </TooltipProvider>
