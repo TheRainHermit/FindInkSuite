@@ -5,6 +5,15 @@ i18n.use(initReactI18next).init({
   resources: {
     es: {
       translation: {
+        homepage: {
+          title: "Bienvenido a FindInk Suite",
+          subtitle: "Elige el módulo que deseas explorar:",
+          tattooVisionTitle: "Tattoo Vision",
+          tattooVisionDesc: "Genera vistas previas de tatuajes con IA.",
+          crmTitle: "InkFlow CRM",
+          crmDesc: "Gestiona clientes, citas y tu estudio.",
+          heroImageAlt: "Imagen artística de fondo de tatuaje",
+        },
         galleryTitle: "Galería de Tatuajes",
         contactTitle: "Contacto",
         contactDesc: "¿Tienes dudas o quieres colaborar? Escríbenos a",
@@ -139,12 +148,21 @@ i18n.use(initReactI18next).init({
         termsOfUseSection5Title: "Contacto",
         termsOfUseSection5Content:
           "Para dudas o reclamaciones, contáctanos en info@findink.co.",
-          apiTest: "Prueba de API",
+        apiTest: "Prueba de API",
         // ...otros textos
       },
     },
     en: {
       translation: {
+        homepage: {
+          title: "Welcome to FindInk Suite",
+          subtitle: "Choose the module you want to explore:",
+          tattooVisionTitle: "Tattoo Vision",
+          tattooVisionDesc: "Generate tattoo previews with AI.",
+          crmTitle: "InkFlow CRM",
+          crmDesc: "Manage clients, appointments, and your studio.",
+          heroImageAlt: "Artistic tattoo background image",
+        },
         galleryTitle: "Tattoo Gallery",
         contactTitle: "Contact",
         contactDesc: "Questions or want to collaborate? Write to",
@@ -278,7 +296,7 @@ i18n.use(initReactI18next).init({
         termsOfUseSection5Title: "Contact",
         termsOfUseSection5Content:
           "For questions or claims, contact us at info@findink.co.",
-          apiTest: "API Test",
+        apiTest: "API Test",
         // ...other texts
       },
     },
