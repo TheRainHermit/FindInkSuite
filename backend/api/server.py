@@ -545,7 +545,9 @@ OLLAMA_BASE_URL = "http://localhost:11434"
 MODEL_TIMEOUTS = {
     "phi": 15,           # Phi optimizado: 15 segundos
     "mistral": 25,       # Mistral optimizado: 25 segundos  
-    "llama2:7b-chat": 35 # Llama2 optimizado: 35 segundos
+    "llama2:7b-chat": 35, # Llama2 optimizado: 35 segundos
+    "llama3:latest": 40, # Llama3 optimizado: 40 segundos
+    "codegemma:latest": 45 # CodeGemma optimizado: 45 segundos
 }
 
 # Pool de conexiones para distribución de carga
@@ -558,7 +560,9 @@ class OllamaOptimizer:
         self.model_queue = {
             "phi": [],
             "mistral": [],
-            "llama2:7b-chat": []
+            "llama2:7b-chat": [],
+            "llama3:latest": [],
+            "codegemma:latest": []
         }
         self.lock = threading.Lock()
     
@@ -578,7 +582,7 @@ async def call_ollama(model: str, prompt: str, context: str = "") -> Dict[str, A
     """Llamar a Ollama API para generar respuesta con distribución de carga optimizada"""
     try:
         # Validar modelo
-        valid_models = ["phi", "mistral", "llama2:7b-chat"]
+        valid_models = ["phi", "mistral", "llama2:7b-chat", "llama3:latest", "codegemma:latest"]
         if model not in valid_models:
             model = "phi"  # Fallback al más rápido
         
@@ -750,7 +754,7 @@ async def chat_with_ai(chat_request: ChatRequest):
             }
         
         # Usar modelo por defecto si no es válido
-        valid_models = ["phi", "mistral", "llama2:7b-chat"]
+        valid_models = ["phi", "mistral", "llama2:7b-chat", "llama3:latest", "codegemma:latest"]
         model_to_use = chat_request.model if chat_request.model in valid_models else "phi"
         
         result = await call_ollama(
