@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* MODO CLARO */
+    --background: 0 0% 100%;             /* #fff */
+    --foreground: 220 10% 10%;           /* #18181b */
+    --muted: 162 100% 96%;               /* verde muy claro */
+    --muted-foreground: 220 10% 40%;    /* azul verdoso */
+    --border: 188 100% 90%;              /* azul claro */
+    --primary: 162 100% 50%;             /* verde vibrante */
+    --primary-foreground: 220 10% 10%;   /* #18181b */
+    --secondary: 188 100% 50%;           /* azul vibrante */
+    --secondary-foreground: 220 10% 10%; /* #18181b */
+    --card: 0 0% 100%;                   /* #fff */
+    --card-foreground: 220 10% 10%;      /* #18181b */
+
+    /* Degradado hero para modo claro */
+    --gradient-hero: linear-gradient(135deg, hsl(162 100% 90%) 0%, hsl(188 100% 95%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(162 100% 50%), hsl(188 100% 50%));
+    --gradient-secondary: linear-gradient(135deg, hsl(188 100% 50%), hsl(162 100% 50%));
+
+    --shadow-neon-primary: 0 0 20px hsl(162 100% 50% / 0.5), 0 0 40px hsl(162 100% 50% / 0.3);
+    --shadow-neon-secondary: 0 0 20px hsl(188 100% 50% / 0.5), 0 0 40px hsl(188 100% 50% / 0.3);
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    /* MODO OSCURO */
+    --background: 220 20% 10%;           /* gris oscuro */
+    --foreground: 0 0% 98%;              /* blanco */
+    --card: 220 20% 12%;                 /* gris oscuro */
+    --card-foreground: 0 0% 98%;         /* blanco */
+    --popover: 220 20% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 162 100% 50%;             /* verde vibrante */
+    --primary-foreground: 0 0% 98%;      /* blanco */
+    --secondary: 188 100% 50%;           /* azul vibrante */
+    --secondary-foreground: 0 0% 98%;    /* blanco */
+
+    --muted: 162 100% 15%;               /* verde oscuro */
+    --muted-foreground: 188 100% 65%;    /* azul verdoso claro */
+
+    --accent: 162 100% 50%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 188 100% 20%;
+    --input: 188 100% 20%;
+    --ring: 162 100% 50%;
+
+    /* Degradado hero para modo oscuro */
+    --gradient-hero: linear-gradient(135deg, hsl(220 20% 10%) 0%, hsl(162 100% 15%) 100%);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

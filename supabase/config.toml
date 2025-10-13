@@ -1,0 +1,4 @@
+project_id = "tgyzzodkvbliljgzrxtj"
+
+[functions.apply-tattoo]
+verify_jwt = false
