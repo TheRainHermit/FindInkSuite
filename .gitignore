@@ -1,11 +1,40 @@
+# Dependencies
+node_modules/
+*.pnp
+.pnp.js
+
+# Production builds
+/build
+/dist
+/.next/
+/out/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Environment files
+.env
+.env*.local
+.env.production
+
 # Logs
-<<<<<<< HEAD
+logs
 *.log
-sistema_completo.log
-servidor.log
-servidor_cors.log
-servidor_vpn.log
-tunnel.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime and cache
+.npm
+.eslintcache
+.next
+.nuxt
+.cache
 
 # Python
 __pycache__/
@@ -19,12 +48,16 @@ ENV/
 env.bak/
 venv.bak/
 
-# IDE
+# Backend specific
+backend/logs/*.log
+backend/__pycache__/
+*.pyc
+
+# IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
 # OS
 .DS_Store
@@ -35,55 +68,12 @@ venv.bak/
 ehthumbs.db
 Thumbs.db
 
-# LocalTunnel
-tunnel_output.tmp
-
-# Backup files
-*_backup.py
-*_original.py
-
 # Temporary files
-temp_*
+temp-files/
 *.tmp
 *.temp
 
-# Config files with sensitive data
-config.json
-.env
-.env.local
-
-# Node modules (if using npm tools)
-node_modules/
-
-# Certificate files
-*.pem
+# Sensitive
 *.key
-*.crt
-=======
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-
-.env
->>>>>>> 481dbc8294493af5c5a8196dae9e7d1739b80b44
+*.pem
+config.json

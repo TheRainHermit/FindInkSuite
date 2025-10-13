@@ -1,95 +1,186 @@
-<<<<<<< HEAD
+# FindInkSuite 🎨<<<<<<< HEAD
+
 # 🎨 FindInkSuite - Sistema de Gestión de Tatuajes# 🎯 SERVIDOR TATTOO HACKATHON - PROYECTO DEFINITIVO
 
+## Sistema Completo de Gestión de Tatuajes
 
+
+
+**FindInkSuite** es una plataforma integral para la gestión de estudios de tatuajes, que incluye frontend moderno con React/Next.js y backend potente con FastAPI.
 
 ## 📋 Descripción## 📁 Archivos del proyecto:
 
+## 🏗️ Estructura del Proyecto
+
 Sistema completo de gestión de tatuajes desarrollado con FastAPI, que incluye autenticación, gestión de citas, catálogo de tatuajes y chat con IA. Diseñado para estudios de tatuajes y artistas.- `tattoo_8001.py` - Servidor API principal
 
-- `servidor_definitivo.sh` - Script único para ejecutar todo
+```
 
-## ✨ Características- `vpn-config/` - Configuración VPN (opcional)
+FindInkSuite/- `servidor_definitivo.sh` - Script único para ejecutar todo
 
-- `requirements.txt` - Dependencias Python
+├── 🎨 Frontend/              # Aplicación React/Next.js
 
-### 🔐 Autenticación
+│   ├── src/                  # Código fuente del frontend## ✨ Características- `vpn-config/` - Configuración VPN (opcional)
 
-- Sistema de login con JWT## 🚀 EJECUTAR EL SISTEMA:
+│   ├── public/               # Archivos estáticos
 
-- Roles de usuario (Artista, Admin)
+│   └── components.json       # Configuración de componentes- `requirements.txt` - Dependencias Python
 
-- Autenticación segura con tokens```bash
+│
 
-# Un solo comando para todo:
+├── ⚡ Backend/               # API FastAPI### 🔐 Autenticación
 
-### 🎨 Gestión de Tatuajes./servidor_definitivo.sh
+│   ├── api/                  # Servidores y endpoints
 
-- Catálogo completo de diseños```
+│   ├── scripts/              # Scripts de automatización- Sistema de login con JWT## 🚀 EJECUTAR EL SISTEMA:
 
-- Información detallada (estilo, precio, artista)
+│   ├── tests/                # Tests y verificaciones
 
-- API REST para integración con frontend## 🌐 URLs para tu compañero:
+│   └── requirements.txt      # Dependencias Python- Roles de usuario (Artista, Admin)
+
+│
+
+├── 📚 Docs/                  # Documentación- Autenticación segura con tokens```bash
+
+│   ├── technical/            # Documentación técnica
+
+│   ├── user-guides/          # Guías de usuario# Un solo comando para todo:
+
+│   └── quick-start/          # Acceso rápido
+
+│### 🎨 Gestión de Tatuajes./servidor_definitivo.sh
+
+└── 🔧 Config/                # Configuraciones
+
+    ├── .github/workflows/    # CI/CD- Catálogo completo de diseños```
+
+    └── temp-files/           # Archivos temporales
+
+```- Información detallada (estilo, precio, artista)
 
 
 
-### 📅 Sistema de Citas### 📚 **PRINCIPAL (LocalTunnel):**
-
-- Gestión de citas y reservas- **Documentación**: `https://tattoo-hackathon-1006.loca.lt/docs`
-
-- Estados de cita (confirmada, pendiente)- **API Base**: `https://tattoo-hackathon-1006.loca.lt/api`
-
-- Información de clientes- **Estado**: `https://tattoo-hackathon-1006.loca.lt/status`
+## 🚀 Inicio Rápido- API REST para integración con frontend## 🌐 URLs para tu compañero:
 
 
+
+### Frontend
+
+```bash
+
+npm install### 📅 Sistema de Citas### 📚 **PRINCIPAL (LocalTunnel):**
+
+npm run dev
+
+```- Gestión de citas y reservas- **Documentación**: `https://tattoo-hackathon-1006.loca.lt/docs`
+
+
+
+### Backend- Estados de cita (confirmada, pendiente)- **API Base**: `https://tattoo-hackathon-1006.loca.lt/api`
+
+```bash
+
+cd backend- Información de clientes- **Estado**: `https://tattoo-hackathon-1006.loca.lt/status`
+
+pip install -r requirements.txt
+
+python api/main.py
+
+```
 
 ### 🤖 Chat IA### 🏠 **ALTERNATIVA (IP Directa):**
 
-- Asistente inteligente para consultas- **Documentación**: `http://190.217.23.26:8001/docs`
+### URLs de Desarrollo
 
-- Respuestas contextuales sobre tatuajes- **API Base**: `http://190.217.23.26:8001/api`
+- **Frontend**: http://localhost:3000- Asistente inteligente para consultas- **Documentación**: `http://190.217.23.26:8001/docs`
 
-- Información sobre precios y estilos
+- **Backend API**: http://localhost:8001
 
-## 🎯 ENDPOINTS COMPLETOS:
+- **API Docs**: http://localhost:8001/docs- Respuestas contextuales sobre tatuajes- **API Base**: `http://190.217.23.26:8001/api`
 
-### 🌐 CORS Configurado
+
+
+## 📖 Documentación- Información sobre precios y estilos
+
+
+
+- **[Guía Rápida](docs/quick-start/)**: Para empezar inmediatamente## 🎯 ENDPOINTS COMPLETOS:
+
+- **[Tutorial Completo](docs/user-guides/)**: Guía paso a paso
+
+- **[Documentación Técnica](docs/technical/)**: Detalles técnicos### 🌐 CORS Configurado
+
+- **[API Reference](docs/technical/API_PARA_COMPAÑERO.md)**: Documentación de endpoints
 
 - Acceso desde cualquier frontend### 🔐 **Autenticación:**
 
+## 🛠️ Tecnologías
+
 - Headers completamente configurados- `POST /api/auth/login` - Login de usuario
 
-- Sin restricciones de origen- `GET /api/auth/me` - Info del usuario actual
+### Frontend
 
+- **React 18+** con TypeScript- Sin restricciones de origen- `GET /api/auth/me` - Info del usuario actual
 
+- **Next.js** para SSR/SSG
+
+- **Tailwind CSS** para estilos
+
+- **Vite** para desarrollo rápido
 
 ## 🚀 Instalación y Uso### 🎨 **Tatuajes:**
 
-- `GET /api/tattoos` - Listar todos los tatuajes
+### Backend
 
-### Prerrequisitos- `POST /api/tattoos` - Crear nuevo tatuaje
+- **FastAPI** para APIs rápidas- `GET /api/tattoos` - Listar todos los tatuajes
+
+- **Python 3.8+**
+
+- **JWT** para autenticación### Prerrequisitos- `POST /api/tattoos` - Crear nuevo tatuaje
+
+- **CORS** configurado para desarrollo
 
 ```bash- `GET /api/tattoos/{id}` - Obtener tatuaje específico
 
+## 🤝 Para Desarrolladores
+
 pip install fastapi uvicorn pydantic[email]- `PUT /api/tattoos/{id}` - Actualizar tatuaje
+
+Si eres un compañero desarrollador:
 
 ```- `DELETE /api/tattoos/{id}` - Eliminar tatuaje
 
+1. **Clona el repositorio**
 
+2. **Consulta `/docs/quick-start/`** para acceso inmediato
 
-### Ejecutar el Servidor### 👥 **Clientes:**
+3. **Revisa `/docs/user-guides/`** para entender el sistema
+
+4. **Backend**: Ejecuta `python backend/api/main.py`### Ejecutar el Servidor### 👥 **Clientes:**
+
+5. **Frontend**: Ejecuta `npm run dev`
 
 ```bash- `GET /api/clients` - Listar todos los clientes ✅ **SOLUCIONADO**
 
+## 📞 Soporte
+
 python3 temp_middle.py- `POST /api/clients` - Crear nuevo cliente
 
-```- `GET /api/clients/{id}` - Obtener cliente específico
+Para problemas o dudas:
 
-- `PUT /api/clients/{id}` - Actualizar cliente
+- Revisa la documentación en `/docs/````- `GET /api/clients/{id}` - Obtener cliente específico
 
-El servidor se ejecutará en: `http://localhost:8001`- `DELETE /api/clients/{id}` - Eliminar cliente
+- Consulta los logs en `/backend/logs/`
+
+- Ejecuta los scripts de diagnóstico en `/backend/scripts/`- `PUT /api/clients/{id}` - Actualizar cliente
 
 
+
+---El servidor se ejecutará en: `http://localhost:8001`- `DELETE /api/clients/{id}` - Eliminar cliente
+
+
+
+**FindInkSuite** - *Tu estudio de tatuajes, digitalizado* ✨
 
 ### Documentación API### 📅 **Citas:**
 
