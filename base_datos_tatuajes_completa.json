@@ -1,0 +1,853 @@
+{
+	"fecha_extraccion": "2025-10-13 17:20:41",
+	"tatuadores_procesados": 10,
+	"total_tatuajes": 54,
+	"tatuajes": [
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=%2Fimg%2FArtists%2Fbg.jpg&w=3840&q=75",
+			"descripcion_alt": "Background image artist Mate",
+			"tatuador_nombre": "Mate",
+			"tatuador_ciudad": "Armenia",
+			"tatuador_url": "https://app.findink.co/artist/mate",
+			"tatuador_especialidades": [
+				"tradicional",
+				"japonés",
+				"acuarela",
+				"blackwork",
+				"color",
+				"neotradicional"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "espalda",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:16:39"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_1723_cbae9bfa87.jpeg&w=256&q=75",
+			"descripcion_alt": "Image profile artist Mate",
+			"tatuador_nombre": "Mate",
+			"tatuador_ciudad": "Armenia",
+			"tatuador_url": "https://app.findink.co/artist/mate",
+			"tatuador_especialidades": [
+				"tradicional",
+				"japonés",
+				"acuarela",
+				"blackwork",
+				"color",
+				"neotradicional"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:16:39"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Fc35f3602_ade2_4a75_a4ac_e2e1fd448ca2_39f44bed52.jpeg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Mate",
+			"tatuador_ciudad": "Armenia",
+			"tatuador_url": "https://app.findink.co/artist/mate",
+			"tatuador_especialidades": [
+				"tradicional",
+				"japonés",
+				"acuarela",
+				"blackwork",
+				"color",
+				"neotradicional"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:16:39"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_0117_92a07550cd.jpeg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Mate",
+			"tatuador_ciudad": "Armenia",
+			"tatuador_url": "https://app.findink.co/artist/mate",
+			"tatuador_especialidades": [
+				"tradicional",
+				"japonés",
+				"acuarela",
+				"blackwork",
+				"color",
+				"neotradicional"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:16:39"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_8764_a5b4aa9b73.jpeg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Mate",
+			"tatuador_ciudad": "Armenia",
+			"tatuador_url": "https://app.findink.co/artist/mate",
+			"tatuador_especialidades": [
+				"tradicional",
+				"japonés",
+				"acuarela",
+				"blackwork",
+				"color",
+				"neotradicional"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:16:39"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_9771_27526e9b2e.jpeg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Mate",
+			"tatuador_ciudad": "Armenia",
+			"tatuador_url": "https://app.findink.co/artist/mate",
+			"tatuador_especialidades": [
+				"tradicional",
+				"japonés",
+				"acuarela",
+				"blackwork",
+				"color",
+				"neotradicional"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:16:39"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=%2Fimg%2FArtists%2Fbg.jpg&w=3840&q=75",
+			"descripcion_alt": "Background image artist Rickorbetattoo",
+			"tatuador_nombre": "Rickorbetattoo",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/rickorbetattoo",
+			"tatuador_especialidades": [
+				"blackwork",
+				"realism",
+				"microrealismo",
+				"acuarela",
+				"color"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "espalda",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:05"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FBrand_Rick_Display_Big_251263063c.jpg&w=256&q=75",
+			"descripcion_alt": "Image profile artist Rickorbetattoo",
+			"tatuador_nombre": "Rickorbetattoo",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/rickorbetattoo",
+			"tatuador_especialidades": [
+				"blackwork",
+				"realism",
+				"microrealismo",
+				"acuarela",
+				"color"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:06"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Frickorbetattoo_1727894395469_5348282aea.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Rickorbetattoo",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/rickorbetattoo",
+			"tatuador_especialidades": [
+				"blackwork",
+				"realism",
+				"microrealismo",
+				"acuarela",
+				"color"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:06"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Frickorbetattoo_1727894451694_341eb4a17e.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Rickorbetattoo",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/rickorbetattoo",
+			"tatuador_especialidades": [
+				"blackwork",
+				"realism",
+				"microrealismo",
+				"acuarela",
+				"color"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:06"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Frickorbetattoo_1727894377073_e3ff540134.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Rickorbetattoo",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/rickorbetattoo",
+			"tatuador_especialidades": [
+				"blackwork",
+				"realism",
+				"microrealismo",
+				"acuarela",
+				"color"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:06"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Frickorbetattoo_1727894351993_d3cb83b398.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Rickorbetattoo",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/rickorbetattoo",
+			"tatuador_especialidades": [
+				"blackwork",
+				"realism",
+				"microrealismo",
+				"acuarela",
+				"color"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:06"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=%2Fimg%2FArtists%2Fbg.jpg&w=3840&q=75",
+			"descripcion_alt": "Background image artist Eli",
+			"tatuador_nombre": "Eli",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/eli",
+			"tatuador_especialidades": [
+				"color",
+				"japonés",
+				"blackwork",
+				"acuarela",
+				"realism",
+				"microrealismo",
+				"minimalista",
+				"tradicional",
+				"neotradicional"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "espalda",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:32"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FFB_IMG_1728674384106_90d8f26e89.jpg&w=256&q=75",
+			"descripcion_alt": "Image profile artist Eli",
+			"tatuador_nombre": "Eli",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/eli",
+			"tatuador_especialidades": [
+				"color",
+				"japonés",
+				"blackwork",
+				"acuarela",
+				"realism",
+				"microrealismo",
+				"minimalista",
+				"tradicional",
+				"neotradicional"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:32"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FScreenshot_2024_10_11_14_55_04_507_com_instagram_android_1299f83f64.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Eli",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/eli",
+			"tatuador_especialidades": [
+				"color",
+				"japonés",
+				"blackwork",
+				"acuarela",
+				"realism",
+				"microrealismo",
+				"minimalista",
+				"tradicional",
+				"neotradicional"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:32"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=%2Fimg%2FArtists%2Fbg.jpg&w=3840&q=75",
+			"descripcion_alt": "Background image artist CarlosTinoco",
+			"tatuador_nombre": "CarlosTinoco",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/carlos-tinoco",
+			"tatuador_especialidades": [
+				"blackwork",
+				"color"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "espalda",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:58"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_9664_db37246452.jpeg&w=256&q=75",
+			"descripcion_alt": "Image profile artist CarlosTinoco",
+			"tatuador_nombre": "CarlosTinoco",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/carlos-tinoco",
+			"tatuador_especialidades": [
+				"blackwork",
+				"color"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:58"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_9728_ea5784f603.jpeg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "CarlosTinoco",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/carlos-tinoco",
+			"tatuador_especialidades": [
+				"blackwork",
+				"color"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:58"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_9583_ca8d36555e.jpeg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "CarlosTinoco",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/carlos-tinoco",
+			"tatuador_especialidades": [
+				"blackwork",
+				"color"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:58"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_8260_ec483d0c2e.jpeg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "CarlosTinoco",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/carlos-tinoco",
+			"tatuador_especialidades": [
+				"blackwork",
+				"color"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:59"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_9062_24f24672f2.jpeg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "CarlosTinoco",
+			"tatuador_ciudad": "Barranquilla",
+			"tatuador_url": "https://app.findink.co/artist/carlos-tinoco",
+			"tatuador_especialidades": [
+				"blackwork",
+				"color"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:17:59"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=%2Fimg%2FArtists%2Fbg.jpg&w=3840&q=75",
+			"descripcion_alt": "Background image artist isis",
+			"tatuador_nombre": "isis",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/isis",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "espalda",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:18:25"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2F20240914_112227_94eb0b2f5a.jpg&w=256&q=75",
+			"descripcion_alt": "Image profile artist isis",
+			"tatuador_nombre": "isis",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/isis",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:18:25"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FPSX_20230103_164501_ecb1eeb2aa.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "isis",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/isis",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:18:25"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FPSX_20231107_150957_041137_52a4f0eb28.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "isis",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/isis",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:18:25"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_20240721_202714_edit_18215420759508_cb558b8857.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "isis",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/isis",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:18:25"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=%2Fimg%2FArtists%2Fbg.jpg&w=3840&q=75",
+			"descripcion_alt": "Background image artist PabloBarrera",
+			"tatuador_nombre": "PabloBarrera",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/pablo-barrera",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "espalda",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:18:51"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_8450_c56873c4cb.jpg&w=256&q=75",
+			"descripcion_alt": "Image profile artist PabloBarrera",
+			"tatuador_nombre": "PabloBarrera",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/pablo-barrera",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:18:51"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FWhats_App_Image_2024_10_23_at_10_36_16_AM_1_f943385a22.jpeg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "PabloBarrera",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/pablo-barrera",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:18:51"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FWhats_App_Image_2024_10_23_at_10_42_30_AM_71558c3366.jpeg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "PabloBarrera",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/pablo-barrera",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:18:51"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FWhats_App_Image_2024_10_23_at_10_36_16_AM_791f7de905.jpeg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "PabloBarrera",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/pablo-barrera",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:18:51"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FWhats_App_Image_2024_10_23_at_10_36_16_AM_2_88aeb54826.jpeg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "PabloBarrera",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/pablo-barrera",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:18:51"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=%2Fimg%2FArtists%2Fbg.jpg&w=3840&q=75",
+			"descripcion_alt": "Background image artist Valhalla",
+			"tatuador_nombre": "Valhalla",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/valhalla",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "espalda",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:19:18"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Finbound1321807898195880140_8ce6ff2e0f.webp&w=256&q=75",
+			"descripcion_alt": "Image profile artist Valhalla",
+			"tatuador_nombre": "Valhalla",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/valhalla",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:19:18"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Finbound4689605467993501105_35b28a9f2f.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Valhalla",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/valhalla",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:19:18"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Finbound8688464595624955240_dbdd300ed3.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Valhalla",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/valhalla",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:19:18"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Finbound5474427158063087278_f05f40a375.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Valhalla",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/valhalla",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:19:18"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Finbound2899903513653246164_90da0eef77.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Valhalla",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/valhalla",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:19:18"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=%2Fimg%2FArtists%2Fbg.jpg&w=3840&q=75",
+			"descripcion_alt": "Background image artist Checho",
+			"tatuador_nombre": "Checho",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/checho",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "espalda",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:19:45"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_20240924_173731_100d44d8a5.jpg&w=256&q=75",
+			"descripcion_alt": "Image profile artist Checho",
+			"tatuador_nombre": "Checho",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/checho",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:19:45"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_20240929_210839_ddcd74cec3.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Checho",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/checho",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:19:45"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_20240929_210815_1b9c36e7df.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Checho",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/checho",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:19:46"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_20250106_193118_65b49fe2ed.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Checho",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/checho",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:19:46"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_20250106_205141_9aae746f6e.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Checho",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/checho",
+			"tatuador_especialidades": [
+				"blackwork"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:19:46"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=%2Fimg%2FArtists%2Fbg.jpg&w=3840&q=75",
+			"descripcion_alt": "Background image artist Amara",
+			"tatuador_nombre": "Amara",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/amara",
+			"tatuador_especialidades": [
+				"blackwork",
+				"minimalista"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "espalda",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:20:12"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Finbound3674617421329383890_1975897857.jpg&w=256&q=75",
+			"descripcion_alt": "Image profile artist Amara",
+			"tatuador_nombre": "Amara",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/amara",
+			"tatuador_especialidades": [
+				"blackwork",
+				"minimalista"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:20:12"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Finbound3820452744821647447_b0534c2c62.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Amara",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/amara",
+			"tatuador_especialidades": [
+				"blackwork",
+				"minimalista"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:20:12"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Finbound3232612665921823735_653935c7f6.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Amara",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/amara",
+			"tatuador_especialidades": [
+				"blackwork",
+				"minimalista"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:20:12"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Finbound6563717193436493688_88088e73af.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Amara",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/amara",
+			"tatuador_especialidades": [
+				"blackwork",
+				"minimalista"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:20:12"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Finbound6623592602812997066_90060c8d11.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "Amara",
+			"tatuador_ciudad": "Bello",
+			"tatuador_url": "https://app.findink.co/artist/amara",
+			"tatuador_especialidades": [
+				"blackwork",
+				"minimalista"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:20:12"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=%2Fimg%2FArtists%2Fbg.jpg&w=3840&q=75",
+			"descripcion_alt": "Background image artist ladiega",
+			"tatuador_nombre": "ladiega",
+			"tatuador_ciudad": "Bogot\u00e1",
+			"tatuador_url": "https://app.findink.co/artist/ladiega",
+			"tatuador_especialidades": [
+				"japon\u00e9s"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "espalda",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:20:38"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_20240127_122038_023_99562b634d.jpg&w=256&q=75",
+			"descripcion_alt": "Image profile artist ladiega",
+			"tatuador_nombre": "ladiega",
+			"tatuador_ciudad": "Bogot\u00e1",
+			"tatuador_url": "https://app.findink.co/artist/ladiega",
+			"tatuador_especialidades": [
+				"japon\u00e9s"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:20:38"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2FIMG_20240212_014457_305_739d137755.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "ladiega",
+			"tatuador_ciudad": "Bogot\u00e1",
+			"tatuador_url": "https://app.findink.co/artist/ladiega",
+			"tatuador_especialidades": [
+				"japon\u00e9s"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:20:39"
+		},
+		{
+			"imagen_url": "https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Fphotobackpice_2f1981a078.jpg&w=1080&q=50",
+			"descripcion_alt": "Image",
+			"tatuador_nombre": "ladiega",
+			"tatuador_ciudad": "Bogot\u00e1",
+			"tatuador_url": "https://app.findink.co/artist/ladiega",
+			"tatuador_especialidades": [
+				"japon\u00e9s"
+			],
+			"estilo": "Por determinar",
+			"parte_cuerpo": "Por determinar",
+			"colores": "Por determinar",
+			"fecha_extraccion": "2025-10-13 17:20:39"
+		}
+	]
+}

@@ -126,6 +126,32 @@ class TattooAIResponse(BaseModel):
     model_used: str
     processing_time: float
 
+
+# =============================================================================
+# 🧩 MODELOS MCP (Model Context Protocol) - Entrada/Salida
+# =============================================================================
+class MCPRequest(BaseModel):
+    query: str
+    url: Optional[str] = "https://findink.co"
+    model: Optional[str] = "phi"
+    max_chunks: Optional[int] = 6
+
+
+class MCPContextChunk(BaseModel):
+    id: int
+    snippet: str
+    source: str
+
+
+class MCPResponse(BaseModel):
+    query: str
+    model_used: str
+    response: str
+    context: List[MCPContextChunk]
+    source_url: str
+    processing_time: float
+    timestamp: datetime
+
 # =============================================================================
 # 🗃️ BASE DE DATOS EN MEMORIA
 # =============================================================================
@@ -640,23 +666,185 @@ async def call_ollama(model: str, prompt: str, context: str = "") -> Dict[str, A
             "error": "timeout"
         }
     except requests.exceptions.ConnectionError:
+        # Ollama no está disponible -> usar fallback local simple
+        return simple_local_ai(prompt, context, model)
+    except Exception as e:
+        # En caso de error inesperado, intentar fallback local para mantener funcionalidad
+        try:
+            return simple_local_ai(prompt, context, model)
+        except Exception:
+            if model != "phi":
+                return await call_ollama("phi", prompt, context)
+            return {
+                "response": f"Error inesperado: {str(e)}. Intenta nuevamente.",
+                "processing_time": 0,
+                "success": False,
+                "model_used": model,
+                "error": "general_error"
+            }
+
+
+def simple_local_ai(prompt: str, context: str, model_hint: str = "local") -> Dict[str, Any]:
+    """Fallback local muy simple: busca frases relevantes en el contexto y construye
+    una respuesta resumida y sugerencias. No requiere modelos externos.
+    Está pensado para mantener funcionalidad cuando Ollama no está disponible."""
+    import time
+    t0 = time.time()
+    try:
+        text = context or ""
+        # split into sentences
+        import re
+        sentences = re.split(r"(?<=[.!?])\s+", text)
+        qwords = [w.lower() for w in re.findall(r"\w+", prompt) if len(w) > 2]
+
+        # find sentences that match query words
+        matches = []
+        for s in sentences:
+            sl = s.lower()
+            score = sum(1 for w in qwords if w in sl)
+            if score > 0:
+                matches.append((score, s.strip()))
+
+        # sort and take top matches
+        matches.sort(key=lambda x: -x[0])
+        top = [m[1] for m in matches[:6]]
+
+        if not top and sentences:
+            # fallback: take the first paragraph-sized slice
+            top = [" ".join(sentences[:3]).strip()]
+
+        # build a simple answer
+        answer_parts = []
+        if top:
+            answer_parts.append("Información relevante encontrada:")
+            for i, t in enumerate(top, 1):
+                answer_parts.append(f"{i}. {t}")
+        else:
+            answer_parts.append("No se encontró información relevante en la página.")
+
+        # small suggestions based on presence of keywords
+        suggestions = []
+        if any(k in text.lower() for k in ["precio", "costo", "tarifa"]):
+            suggestions.append("Revisar la sección de precios o contactar al artista para tarifas exactas.")
+        if any(k in text.lower() for k in ["contact", "contacto", "telefono", "tel"]):
+            suggestions.append("Buscar la sección de contacto en la página para comunicarte directamente.")
+        if not suggestions:
+            suggestions.append("Pide más detalles específicos (tamaño, ubicación, color) para obtener una recomendación concreta.")
+
+        processing_time = time.time() - t0
+        final = "\n\n".join(answer_parts)
+        final += "\n\nSugerencias:\n- " + "\n- ".join(suggestions)
+
         return {
-            "response": "Servicio de IA temporalmente no disponible. Por favor intenta más tarde.",
-            "processing_time": 0,
-            "success": False,
-            "model_used": model,
-            "error": "connection_error"
+            "response": final,
+            "processing_time": processing_time,
+            "success": True,
+            "model_used": f"local-fallback({model_hint})"
         }
     except Exception as e:
-        if model != "phi":
-            return await call_ollama("phi", prompt, context)
-        return {
-            "response": f"Error inesperado: {str(e)}. Intenta nuevamente.",
-            "processing_time": 0,
-            "success": False,
-            "model_used": model,
-            "error": "general_error"
-        }
+        return {"response": f"Fallback generator error: {e}", "processing_time": 0, "success": False, "model_used": "local-fallback"}
+
+# -----------------------------------------------------------------------------
+# Utilidades para extraer texto y chunking del HTML
+# -----------------------------------------------------------------------------
+def extract_text_from_html(html: str) -> str:
+    """Extractor muy simple: quita tags y scripts/styles y retorna texto plano."""
+    try:
+        import re
+        clean = re.sub(r"<(script|style)[^>]*>.*?</\1>", "", html, flags=re.S | re.I)
+        clean = re.sub(r"<[^>]+>", " ", clean)
+        import html as _html
+        clean = _html.unescape(clean)
+        clean = " ".join(clean.split())
+        return clean
+    except Exception:
+        return ""
+
+
+def chunk_text(text: str, max_chunks: int = 6, approx_chunk_size: int = 1000) -> List[str]:
+    if not text:
+        return []
+    words = text.split()
+    chunks: List[str] = []
+    cur: List[str] = []
+    for w in words:
+        cur.append(w)
+        if len(" ".join(cur)) >= approx_chunk_size:
+            chunks.append(" ".join(cur))
+            cur = []
+        if len(chunks) >= max_chunks:
+            break
+    if cur and len(chunks) < max_chunks:
+        chunks.append(" ".join(cur))
+    return chunks
+
+
+@app.post("/api/ai/mcp")
+async def mcp_endpoint(req: MCPRequest):
+    """Endpoint MCP: obtiene texto de la URL, crea contexto en chunks y genera respuesta IA."""
+    url = req.url or "https://findink.co"
+    # Intentamos obtener la página remota; si falla usamos el dataset local como contexto
+    text = ""
+    used_source = url
+    try:
+        resp = requests.get(url, timeout=8)
+        if resp.status_code == 200:
+            text = extract_text_from_html(resp.text)
+        else:
+            # marcar para usar dataset local
+            text = ""
+    except requests.exceptions.RequestException:
+        # No se pudo conectar a la web remota -> usaremos archivo local
+        text = ""
+
+    # Si no obtuvimos texto remoto, intentar cargar el JSON local `base_datos_tatuajes_completa.json`
+    if not text:
+        try:
+            import os
+            local_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "base_datos_tatuajes_completa.json"))
+            with open(local_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            items = data.get("tatuajes", []) if isinstance(data, dict) else []
+            parts = []
+            for it in items:
+                if not isinstance(it, dict):
+                    continue
+                parts.append(it.get("tatuador_nombre", ""))
+                parts.append(it.get("tatuador_ciudad", ""))
+                parts.append(it.get("descripcion_alt", ""))
+                specs = it.get("tatuador_especialidades", [])
+                if isinstance(specs, list):
+                    parts.extend([s for s in specs if isinstance(s, str)])
+                elif isinstance(specs, str):
+                    parts.append(specs)
+            text = "\n".join([p for p in parts if p])
+            used_source = "local:base_datos_tatuajes_completa.json"
+        except Exception:
+            text = ""
+
+    chunks = chunk_text(text, max_chunks=req.max_chunks or 6)
+
+    context_chunks: List[MCPContextChunk] = []
+    for i, c in enumerate(chunks):
+        snippet = c if len(c) <= 1000 else c[:1000]
+        context_chunks.append(MCPContextChunk(id=i, snippet=snippet, source=used_source))
+
+    context_summary = "\n---\n".join([f"Chunk {i}: {c[:500]}" for i, c in enumerate(chunks)])
+    prompt = f"You are a helpful assistant. Query: {req.query}\nContext:\n{context_summary}\nProvide a concise, structured answer and suggestions."
+
+    start = datetime.now()
+    result = await call_ollama(req.model or "phi", prompt, context_summary)
+    duration = (datetime.now() - start).total_seconds()
+
+    return MCPResponse(
+        query=req.query,
+        model_used=result.get("model_used", req.model or "phi"),
+        response=result.get("response", ""),
+        context=context_chunks,
+        source_url=used_source,
+        processing_time=duration,
+        timestamp=datetime.now(),
+    )
 
 # =============================================================================
 # 🤖 ENDPOINTS DE OLLAMA IA

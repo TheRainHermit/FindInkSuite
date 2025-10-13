@@ -26,7 +26,7 @@ const Portfolio = React.lazy(
   () => import("./pages/FindInk_InkFlowCRMAI/Portfolio")
 );
 const Artists = React.lazy(
-  () => import("./pages/FindInk_InkFlowCRMAI/TattooPerson")
+  () => import("./pages/FindInk_InkFlowCRMAI/Artists")
 );
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const TattooVision = React.lazy(

@@ -1,53 +1,56 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus, Image as ImageIcon, Tag, Sparkles } from "lucide-react";
+import { useMemo } from "react";
+import { useLocation } from "react-router-dom";
 
-const portfolioItems = [
-  {
-    id: 1,
-    style: "Realismo",
-    size: "Grande",
-    location: "Brazo",
-    tags: ["Color", "Naturaleza"],
-  },
-  {
-    id: 2,
-    style: "Geométrico",
-    size: "Mediano",
-    location: "Espalda",
-    tags: ["Blackwork", "Abstracto"],
-  },
-  {
-    id: 3,
-    style: "Minimalista",
-    size: "Pequeño",
-    location: "Muñeca",
-    tags: ["Linework", "Simple"],
-  },
-  {
-    id: 4,
-    style: "Tradicional",
-    size: "Grande",
-    location: "Pecho",
-    tags: ["Color", "Old School"],
-  },
-  {
-    id: 5,
-    style: "Acuarela",
-    size: "Mediano",
-    location: "Hombro",
-    tags: ["Color", "Abstracto"],
-  },
-  {
-    id: 6,
-    style: "Lettering",
-    size: "Pequeño",
-    location: "Costillas",
-    tags: ["Tipografía", "Script"],
-  },
+// dataset local
+import rawData from "../../../base_datos_tatuajes_completa.json";
+
+const portfolioFallback = [
+  { id: 1, style: "Realismo", size: "Grande", location: "Brazo", tags: ["Color", "Naturaleza"] },
+  { id: 2, style: "Geométrico", size: "Mediano", location: "Espalda", tags: ["Blackwork", "Abstracto"] },
+  { id: 3, style: "Minimalista", size: "Pequeño", location: "Muñeca", tags: ["Linework", "Simple"] },
 ];
 
+type RawItem = {
+  imagen_url?: string;
+  descripcion_alt?: string;
+  tatuador_nombre?: string;
+  tatuador_ciudad?: string;
+  tatuador_url?: string;
+  tatuador_especialidades?: string[];
+};
+
 export default function Portfolio() {
+  const location = useLocation();
+  const params = useMemo(() => new URLSearchParams(location.search), [location.search]);
+  const artistQuery = params.get("artist") || "";
+
+  const raw = (rawData as any).tatuajes as RawItem[] | undefined;
+
+  const portfolioItems = useMemo(() => {
+    if (!artistQuery) return portfolioFallback;
+    if (!raw) return [];
+    // match by tatuador_nombre (case-insensitive) or slug in tatuador_url
+    const filtered = raw.filter((it) => {
+      const name = (it.tatuador_nombre || "").toLowerCase();
+      const url = (it.tatuador_url || "").toLowerCase();
+      const q = artistQuery.toLowerCase();
+      return name === q || url.includes(q) || name.includes(q);
+    });
+
+    // map to items expected by UI (id/style/size/location/tags) using available fields
+    return filtered.map((it, idx) => ({
+      id: idx,
+      style: it.tatuador_especialidades ? it.tatuador_especialidades.join(", ") : "Por determinar",
+      size: "Por determinar",
+      location: it.tatuador_ciudad || "Por determinar",
+      tags: it.tatuador_especialidades || [],
+      image: it.imagen_url,
+    }));
+  }, [artistQuery, raw]);
+
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -70,8 +73,15 @@ export default function Portfolio() {
             className="group border-border/50 bg-card/50 backdrop-blur overflow-hidden hover:border-[hsl(var(--ink-purple)/0.5)] transition-all hover:shadow-[0_0_30px_hsl(var(--ink-purple)/0.2)] cursor-pointer"
           >
             <div className="relative aspect-square bg-gradient-to-br from-[hsl(var(--ink-purple)/0.3)] to-[hsl(var(--ink-cyan)/0.3)] flex items-center justify-center overflow-hidden">
-              <ImageIcon className="h-16 w-16 text-muted-foreground/50" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              {item.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={item.image} alt={item.style || "imagen"} className="object-cover w-full h-full" />
+              ) : (
+                <>
+                  <ImageIcon className="h-16 w-16 text-muted-foreground/50" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                </>
+              )}
             </div>
             <CardContent className="p-4 space-y-3">
               <div className="flex items-center justify-between">

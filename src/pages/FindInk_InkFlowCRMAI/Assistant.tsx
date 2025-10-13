@@ -4,6 +4,23 @@ import { Input } from "@/components/ui/input";
 import { Sparkles, Send, MessageSquare } from "lucide-react";
 import { useState } from "react";
 
+async function callMCP(query: string) {
+  try {
+    const res = await fetch(`/api/ai/mcp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query, url: "https://findink.co", model: "mistral", max_chunks: 6 }),
+    });
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error(txt || "Error en MCP");
+    }
+    return await res.json();
+  } catch (e) {
+    return { error: String(e) };
+  }
+}
+
 const suggestions = [
   "¿Cuántas citas tengo esta semana?",
   "Genera ideas para un tatuaje de dragón",
@@ -22,19 +39,22 @@ export default function Assistant() {
 
   const handleSend = () => {
     if (!input.trim()) return;
-    
     setMessages([...messages, { role: "user", content: input }]);
+    const userMessage = input;
     setInput("");
-    
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: "Esta es una demo del asistente AI. En la versión completa con Lovable Cloud, podré responderte con información real de tu negocio y realizar acciones automáticas.",
-        },
-      ]);
-    }, 1000);
+
+    // Llamar al endpoint MCP
+    setMessages((prev) => [...prev, { role: "assistant", content: "Escribiendo respuesta..." }]);
+    callMCP(userMessage).then((resp) => {
+      if (resp.error) {
+        setMessages((prev) => [...prev.slice(0, -1), { role: "assistant", content: `Error: ${resp.error}` }]);
+        return;
+      }
+      const content = resp.response || resp.response_text || "Sin respuesta";
+  const contextSnippets = (resp.context || []).map((c: { source: string; snippet: string }) => `Fuente: ${c.source} - ${c.snippet.slice(0,200)}...`).join("\n\n");
+      const final = content + (contextSnippets ? `\n\nContexto:\n${contextSnippets}` : "");
+      setMessages((prev) => [...prev.slice(0, -1), { role: "assistant", content: final }]);
+    });
   };
 
   return (
