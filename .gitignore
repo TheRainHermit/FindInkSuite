@@ -1,0 +1,60 @@
+# Logs
+*.log
+sistema_completo.log
+servidor.log
+servidor_cors.log
+servidor_vpn.log
+tunnel.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# LocalTunnel
+tunnel_output.tmp
+
+# Backup files
+*_backup.py
+*_original.py
+
+# Temporary files
+temp_*
+*.tmp
+*.temp
+
+# Config files with sensitive data
+config.json
+.env
+.env.local
+
+# Node modules (if using npm tools)
+node_modules/
+
+# Certificate files
+*.pem
+*.key
+*.crt
