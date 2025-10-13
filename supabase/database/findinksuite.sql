@@ -64,3 +64,58 @@ CREATE TABLE assistant_messages (
     message TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
 );
+
+
+-- INSERTS DE PRUEBA
+
+-- Usuarios (artistas/tatuadores)
+INSERT INTO users (name, email, password_hash, phone, role)
+VALUES
+  ('Sofía Martínez', 'sofia.martinez@ink.com', 'hash1', '555-1111', 'artist'),
+  ('Luis Torres', 'luis.torres@ink.com', 'hash2', '555-2222', 'artist'),
+  ('Andrea Gómez', 'andrea.gomez@ink.com', 'hash3', '555-3333', 'admin');
+
+-- Clientes
+INSERT INTO clients (name, email, phone, style, notes)
+VALUES
+  ('Juan Pérez', 'juan.perez@mail.com', '555-4444', 'Realismo', 'Prefiere tatuajes grandes.'),
+  ('Ana Gómez', 'ana.gomez@mail.com', '555-5555', 'Minimalista', 'Alérgica a ciertos pigmentos.'),
+  ('Carlos Ruiz', 'carlos.ruiz@mail.com', '555-6666', 'Tradicional', NULL);
+
+-- Citas
+INSERT INTO appointments (client_id, user_id, date, duration, status, notes)
+VALUES
+  (1, 1, '2024-07-15 15:00:00', 90, 'scheduled', 'Primera sesión'),
+  (2, 2, '2024-07-16 11:00:00', 60, 'completed', 'Tatuaje terminado'),
+  (3, 1, '2024-07-18 10:30:00', 120, 'scheduled', NULL);
+
+-- Portafolio
+INSERT INTO portfolio (user_id, client_id, image_url, description)
+VALUES
+  (1, 1, 'https://example.com/portfolio/dragon.jpg', 'Dragón realista en brazo'),
+  (2, 2, 'https://example.com/portfolio/flower.jpg', 'Flor minimalista en tobillo'),
+  (1, 3, 'https://example.com/portfolio/skull.jpg', 'Calavera tradicional en espalda');
+
+-- Etiquetas automáticas para portafolio
+INSERT INTO portfolio_tags (portfolio_id, tag)
+VALUES
+  (1, 'dragón'),
+  (1, 'realismo'),
+  (2, 'flor'),
+  (2, 'minimalista'),
+  (3, 'calavera'),
+  (3, 'tradicional');
+
+-- Historial de visitas de clientes
+INSERT INTO client_visits (client_id, appointment_id, visit_date)
+VALUES
+  (1, 1, '2024-07-15 15:00:00'),
+  (2, 2, '2024-07-16 11:00:00'),
+  (3, 3, '2024-07-18 10:30:00');
+
+-- Mensajes del asistente AI
+INSERT INTO assistant_messages (user_id, client_id, message)
+VALUES
+  (1, 1, 'Hola Juan, recuerda hidratar la zona del tatuaje.'),
+  (2, 2, 'Ana, tu cita está confirmada para el martes.'),
+  (1, 3, 'Carlos, ¿quieres ver más diseños tradicionales?');
