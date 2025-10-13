@@ -1,6 +1,6 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Users, Calendar, Sparkles, Image, Menu } from "lucide-react";
+import { LayoutDashboard, Users, Calendar, Sparkles, Image, Menu, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import HomeHeader from "../HomeHeader";
@@ -10,7 +10,7 @@ const navItems = [
 	{ icon: Users, label: "Clientes", path: "/crm/clients" },
 	{ icon: Calendar, label: "Calendario", path: "/crm/calendar" },
 	{ icon: Sparkles, label: "Asistente AI", path: "/crm/assistant" },
-	{ icon: Image, label: "Portafolio", path: "/crm/portfolio" },
+	{ icon: User, label: "Tatuadores", path: "/crm/artists" },
 ];
 
 const Layout = () => {
@@ -57,7 +57,7 @@ const Layout = () => {
 										className={cn(
 											"w-full justify-start gap-3 transition-all",
 											isActive &&
-												"bg-gradient-to-r from-[hsl(var(--primary)/0.2)] to-[hsl(var(--secondary)/0.1)] border border-[hsl(var(--primary)/0.3)] shadow-[0_0_8px_hsl(var(--primary)/0.3)]"
+												"bg-gradient-to-r from-[hsl(var(--primary)/0.3)] to-[hsl(var(--secondary)/0.3)] border border-[hsl(var(--primary)/0.1)] shadow-[0_0_8px_hsl(var(--primary)/0.3)]"
 										)}
 									>
 										<Icon

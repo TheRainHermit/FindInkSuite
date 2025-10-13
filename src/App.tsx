@@ -25,6 +25,9 @@ const Assistant = React.lazy(
 const Portfolio = React.lazy(
   () => import("./pages/FindInk_InkFlowCRMAI/Portfolio")
 );
+const Artists = React.lazy(
+  () => import("./pages/FindInk_InkFlowCRMAI/TattooPerson")
+);
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const TattooVision = React.lazy(
   () => import("./pages/FindInk_TattooVision/Index")
@@ -77,6 +80,7 @@ const App = () => {
                 <Route path="/crm/calendar" element={<CalendarPage />} />
                 <Route path="/crm/assistant" element={<Assistant />} />
                 <Route path="/crm/portfolio" element={<Portfolio />} />
+                <Route path="/crm/artists" element={<Artists />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
