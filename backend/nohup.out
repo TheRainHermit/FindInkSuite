@@ -1,0 +1,23 @@
+INFO:     Started server process [15456]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+🎨 SISTEMA DE GESTIÓN DE TATUAJES
+==================================================
+🌐 IP Pública: 190.217.23.26
+🏠 IP Local:   192.168.101.71
+🔌 Puerto:     8001
+==================================================
+✅ CORS: Configurado
+✅ Endpoints: Activos
+✅ Autenticación: Disponible
+==================================================
+🔗 URLs:
+   📚 Docs: http://190.217.23.26:8001/docs
+   🧪 Test: http://190.217.23.26:8001/api/cors-test
+   🔐 Login: http://190.217.23.26:8001/api/auth/login
+==================================================
+🚀 Iniciando servidor...
+INFO:     127.0.0.1:33726 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59108 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59108 - "GET /favicon.ico HTTP/1.1" 404 Not Found
