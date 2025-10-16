@@ -38,6 +38,7 @@ def list_clients(
     name: Optional[str] = None,
     email: Optional[str] = None
 ):
+    print("current_user:", current_user)
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Solo admin puede ver todos los clientes")
     query = db.query(ClientORM)

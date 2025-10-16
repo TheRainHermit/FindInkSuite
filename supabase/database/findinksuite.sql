@@ -119,3 +119,22 @@ VALUES
   (1, 1, 'Hola Juan, recuerda hidratar la zona del tatuaje.'),
   (2, 2, 'Ana, tu cita está confirmada para el martes.'),
   (1, 3, 'Carlos, ¿quieres ver más diseños tradicionales?');
+
+
+
+alter table users
+add column profile_image_url text,
+add column city varchar,
+add column specialties text[],
+add column profile_url text;
+alter table users
+add column gallery_images jsonb;
+
+UPDATE users SET password_hash = '$2b$12$JPDpDqztOMI9Jj0mApr9FeOFTAvV.Uf3HrT1sg1PXpCzUZXwQgmpe' WHERE email = 'sofia.martinez@ink.com';
+UPDATE users SET password_hash = '$2b$12$JPDpDqztOMI9Jj0mApr9FeOFTAvV.Uf3HrT1sg1PXpCzUZXwQgmpe' WHERE email = 'luis.torres@ink.com';
+UPDATE users SET password_hash = '$2b$12$JPDpDqztOMI9Jj0mApr9FeOFTAvV.Uf3HrT1sg1PXpCzUZXwQgmpe' WHERE email = 'andrea.gomez@ink.com';
+UPDATE users SET password_hash = '$2b$12$JPDpDqztOMI9Jj0mApr9FeOFTAvV.Uf3HrT1sg1PXpCzUZXwQgmpe' WHERE email = 'amara@ink.com';
+UPDATE users SET password_hash = '$2b$12$JPDpDqztOMI9Jj0mApr9FeOFTAvV.Uf3HrT1sg1PXpCzUZXwQgmpe' WHERE email = 'carlos@ink.com';
+UPDATE users SET password_hash = '$2b$12$JPDpDqztOMI9Jj0mApr9FeOFTAvV.Uf3HrT1sg1PXpCzUZXwQgmpe' WHERE email = 'eli@ink.com';
+
+UPDATE users SET role = 'admin' WHERE email = 'sofia.martinez@ink.com';

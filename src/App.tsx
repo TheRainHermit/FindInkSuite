@@ -1,12 +1,20 @@
 import React, { Suspense, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Sonner } from "@/components/ui/sonner";
 import { ErrorProvider, useError } from "./hooks/useError";
+import { AuthProvider } from "./context/AuthProvider";
 import Home from "./pages/Home";
+import { useAuth } from "./hooks/useAuth";
 const Layout = React.lazy(
   () => import("./components/FindInk_InkFlowCRMAI/Layout")
 );
@@ -32,7 +40,7 @@ const NotFound = React.lazy(() => import("./pages/NotFound"));
 const TattooVision = React.lazy(
   () => import("./pages/FindInk_TattooVision/Index")
 );
-const CRM = React.lazy(() => import("./pages/FindInk_InkFlowCRMAI/Dashboard"));
+const LoginForm = React.lazy(() => import("./components/LoginForm"));
 
 const GlobalError = () => {
   const { error, setError } = useError();
@@ -52,6 +60,14 @@ const GlobalError = () => {
 
 const queryClient = new QueryClient();
 
+// Ruta protegida para el CRM
+function ProtectedCRM() {
+  const { jwt, user, isLoading } = useAuth();
+  if (isLoading) return <div className="p-8 text-center">Cargando...</div>;
+  if (!jwt || !user) return <LoginForm />;
+  return <Outlet />;
+}
+
 const App = () => {
   const { t } = useTranslation();
 
@@ -64,30 +80,35 @@ const App = () => {
   }, []);
 
   return (
-    <ErrorProvider>
-      <GlobalError />
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <Suspense fallback={<div>{t("loading")}</div>}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/tattoovision" element={<TattooVision />} />
-              <Route path="/crm" element={<Layout />}>
-                <Route index element={<Dashboard />} />
-                <Route path="/crm/clients" element={<Clients />} />
-                <Route path="/crm/calendar" element={<CalendarPage />} />
-                <Route path="/crm/assistant" element={<Assistant />} />
-                <Route path="/crm/portfolio" element={<Portfolio />} />
-                <Route path="/crm/artists" element={<Artists />} />
-              </Route>
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </ErrorProvider>
+    <AuthProvider>
+      <ErrorProvider>
+        <GlobalError />
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <Suspense fallback={<div>{t("loading")}</div>}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/tattoovision" element={<TattooVision />} />
+                {/* CRM protegido */}
+                <Route path="/crm" element={<ProtectedCRM />}>
+                  <Route element={<Layout />}>
+                    <Route index element={<Dashboard />} />
+                    <Route path="clients" element={<Clients />} />
+                    <Route path="calendar" element={<CalendarPage />} />
+                    <Route path="assistant" element={<Assistant />} />
+                    <Route path="portfolio" element={<Portfolio />} />
+                    <Route path="artists" element={<Artists />} />
+                  </Route>
+                </Route>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </ErrorProvider>
+    </AuthProvider>
   );
 };
 

@@ -1,6 +1,8 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, TIMESTAMP
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, TIMESTAMP, ARRAY, JSON
 from sqlalchemy.orm import relationship
 from database import Base
+from sqlalchemy.sql import func
+from sqlalchemy.ext.declarative import declarative_base
 
 class User(Base):
     __tablename__ = "users"
@@ -11,6 +13,11 @@ class User(Base):
     phone = Column(String(20))
     role = Column(String(20), default="artist")
     created_at = Column(TIMESTAMP)
+    profile_image_url = Column(Text)
+    city = Column(String)
+    specialties = Column(ARRAY(String))
+    profile_url = Column(Text)
+    gallery_images = Column(JSON)
 
     # Relaciones
     appointments = relationship("Appointment", back_populates="user")

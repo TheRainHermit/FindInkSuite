@@ -2,7 +2,8 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from fastapi import FastAPI
 from slowapi.errors import RateLimitExceeded
-from routes import auth, tattoos, appointments, clients, ai
+from routes import auth, tattoos, appointments, clients, ai, artists
+from fastapi.staticfiles import StaticFiles
 
 limiter = Limiter(key_func=get_remote_address)
 app = FastAPI(
@@ -17,3 +18,6 @@ app.include_router(tattoos.router)
 app.include_router(appointments.router)
 app.include_router(clients.router)
 app.include_router(ai.router)
+app.include_router(artists.router)
+
+app.mount("/static/portfolio", StaticFiles(directory="uploads/portfolio"), name="portfolio_images")

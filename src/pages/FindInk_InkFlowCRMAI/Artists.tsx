@@ -1,72 +1,31 @@
-import React, { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-
-// Import dataset generated in the repo root
-import rawData from "../../../base_datos_tatuajes_completa.json";
-
-type RawItem = {
-  imagen_url?: string;
-  descripcion_alt?: string;
-  tatuador_nombre?: string;
-  tatuador_ciudad?: string;
-  tatuador_url?: string;
-  tatuador_especialidades?: string[];
-};
+import { useAuth } from "../../hooks/useAuth";
+import { apiFetch } from "../../lib/api";
 
 type Artist = {
+  id: number;
   name: string;
   city?: string;
-  profileImage?: string; // prefer small profile image if available
-  anyImage?: string; // fallback image
+  profileImage?: string;
   specialties?: string[];
   url?: string;
 };
 
-function pickImages(items: RawItem[], name: string) {
-  // prefer profile-sized images (those with "profile" in descripcion_alt or smaller w=256 in url)
-  const imgs = items.filter((i) => (i.tatuador_nombre || "").toLowerCase() === name.toLowerCase());
-  let profile: string | undefined;
-  let anyImg: string | undefined;
-  for (const it of imgs) {
-    const url = it.imagen_url;
-    if (!url) continue;
-    anyImg = anyImg || url;
-    const desc = (it.descripcion_alt || "").toLowerCase();
-    if (desc.includes("profile") || url.includes("w=256") || url.includes("q=75")) {
-      profile = url;
-      break;
-    }
-  }
-  return { profileImage: profile, anyImage: anyImg };
+async function fetchArtists(jwt: string | null): Promise<Artist[]> {
+  if (!jwt) throw new Error("No autenticado");
+  return apiFetch<Artist[]>("/artists/", jwt);
 }
 
 export default function Artists() {
-  const raw = (rawData as any).tatuajes as RawItem[] | undefined;
-
-  const artists: Artist[] = useMemo(() => {
-    if (!raw) return [];
-    const grouped = new Map<string, RawItem[]>();
-    for (const item of raw) {
-      const name = (item.tatuador_nombre || "").trim();
-      if (!name) continue;
-      if (!grouped.has(name)) grouped.set(name, []);
-      grouped.get(name)!.push(item);
-    }
-
-    const out: Artist[] = [];
-    for (const [name, items] of grouped.entries()) {
-      const { profileImage, anyImage } = pickImages(items, name);
-      const city = items.find((i) => i.tatuador_ciudad)?.tatuador_ciudad;
-      const specialties = items.find((i) => i.tatuador_especialidades)?.tatuador_especialidades;
-      const url = items.find((i) => i.tatuador_url)?.tatuador_url;
-      out.push({ name, city, profileImage, anyImage, specialties, url });
-    }
-    // sort by name
-    out.sort((a, b) => a.name.localeCompare(b.name));
-    return out;
-  }, [raw]);
+  const { jwt } = useAuth();
+  const { data: artists = [], isLoading, error } = useQuery<Artist[]>({
+    queryKey: ["artists", jwt],
+    queryFn: () => fetchArtists(jwt),
+    enabled: !!jwt,
+  });
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -75,7 +34,7 @@ export default function Artists() {
           <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-[hsl(var(--ink-purple))] to-[hsl(var(--ink-cyan))] bg-clip-text text-transparent">
             Tatuadores
           </h1>
-          <p className="text-muted-foreground">Lista extraída de la base de datos local con fotos y especialidades</p>
+          <p className="text-muted-foreground">Lista extraída del backend con fotos y especialidades</p>
         </div>
       </div>
 
@@ -84,14 +43,16 @@ export default function Artists() {
         <Input placeholder="Buscar tatuadores..." className="pl-10 bg-card/50 border-border/50 focus:border-[hsl(var(--ink-purple))]" />
       </div>
 
+      {isLoading && <div className="p-8 text-center">Cargando tatuadores...</div>}
+      {error && <div className="p-8 text-center text-red-500">Error al cargar tatuadores</div>}
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {artists.map((a) => (
-          <Card key={a.name} className="border-border/50 bg-card/50 backdrop-blur hover:border-[hsl(var(--ink-purple)/0.5)] transition-all hover:shadow-[0_0_20px_hsl(var(--ink-purple)/0.15)]">
+          <Card key={a.id} className="border-border/50 bg-card/50 backdrop-blur hover:border-[hsl(var(--ink-purple)/0.5)] transition-all hover:shadow-[0_0_20px_hsl(var(--ink-purple)/0.15)]">
             <CardHeader className="flex items-center gap-4 pb-3">
               <div className="h-20 w-20 rounded-md overflow-hidden bg-muted flex items-center justify-center">
-                {a.profileImage || a.anyImage ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={a.profileImage || a.anyImage} alt={a.name} className="object-cover h-full w-full" />
+                {a.profileImage ? (
+                  <img src={a.profileImage} alt={a.name} className="object-cover h-full w-full" />
                 ) : (
                   <div className="text-xs text-muted-foreground">Sin imagen</div>
                 )}

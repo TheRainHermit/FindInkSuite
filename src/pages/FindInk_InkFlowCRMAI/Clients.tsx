@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Plus, User } from "lucide-react";
+import { useAuth } from "../../hooks/useAuth";
+import { apiFetch } from "../../lib/api";
 
 type Client = {
   id: number;
@@ -14,16 +16,17 @@ type Client = {
   style: string;
 };
 
-async function fetchClients(): Promise<Client[]> {
-  const res = await fetch("https://tattoo-hackathon-1006.loca.lt/api/clients");
-  if (!res.ok) throw new Error("Error al cargar clientes");
-  return res.json();
+async function fetchClients(jwt: string | null): Promise<Client[]> {
+  if (!jwt) throw new Error("No autenticado");
+  return apiFetch<Client[]>("/clients", jwt);
 }
 
 export default function Clients() {
+  const { jwt } = useAuth();
   const { data: clients = [], isLoading, error } = useQuery<Client[]>({
-    queryKey: ["clients"],
-    queryFn: fetchClients,
+    queryKey: ["clients", jwt],
+    queryFn: () => fetchClients(jwt),
+    enabled: !!jwt, // Solo ejecuta la query si hay JWT
   });
 
   return (

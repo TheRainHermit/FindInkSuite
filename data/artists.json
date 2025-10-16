@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Amara",
+    "email": "amara@ink.com",
+    "password_hash": "hash1",
+    "role": "artist",
+    "phone": "555-1111",
+    "profile_image_url": "https://findink.co/profiles/amara.jpg",
+    "city": "Bello",
+    "specialties": ["blackwork", "minimalista"],
+    "profile_url": "https://findink.co/amara",
+    "gallery_images": [
+      "https://findink.co/gallery/amara1.jpg",
+      "https://findink.co/gallery/amara2.jpg"
+    ]
+  },
+  {
+    "name": "CarlosTinoco",
+    "email": "carlos@ink.com",
+    "password_hash": "hash2",
+    "role": "artist",
+    "phone": "555-2222",
+    "profile_image_url": "https://findink.co/profiles/carlostinoco.jpg",
+    "city": "Barranquilla",
+    "specialties": ["blackwork", "color"],
+    "profile_url": "https://findink.co/carlostinoco",
+    "gallery_images": [
+      "https://findink.co/gallery/carlostinoco1.jpg"
+    ]
+  },
+  {
+    "name": "Eli",
+    "email": "eli@ink.com",
+    "password_hash": "hash3",
+    "role": "artist",
+    "phone": "555-3333",
+    "profile_image_url": "https://findink.co/profiles/eli.jpg",
+    "city": "Barranquilla",
+    "specialties": ["color", "japonés", "blackwork", "acuarela", "realism", "microrealismo"],
+    "profile_url": "https://findink.co/eli",
+    "gallery_images": [
+      "https://findink.co/gallery/eli1.jpg",
+      "https://findink.co/gallery/eli2.jpg"
+    ]
+  }
+]
