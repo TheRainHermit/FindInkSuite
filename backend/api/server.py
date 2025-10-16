@@ -20,6 +20,7 @@ import json
 import requests
 import asyncio
 from typing import Literal
+import re
 
 # =============================================================================
 # 🌐 CONFIGURACIÓN DE RED
@@ -741,9 +742,31 @@ async def get_available_models():
     except Exception as e:
         raise HTTPException(status_code=503, detail=f"Error conectando con Ollama: {str(e)}")
 
+def choose_model_for_prompt(message: str) -> str:
+    """Heurística simple para elegir un modelo según el contenido del mensaje y su longitud."""
+    try:
+        m = (message or "").lower()
+        # Priorizar modelo de código para preguntas relacionadas con programación
+        if any(k in m for k in ["codigo", "código", "code", "program", "script", "api", "bug", "debug"]):
+            return "codegemma:latest"
+        # Preguntas sobre diseño, arte o creatividad -> Mistral
+        if any(k in m for k in ["diseño", "diseño", "diseñ", "design", "arte", "estilo", "creative", "dibujo"]):
+            return "mistral"
+        # Texto que sugiere descripción fotorealista o realismo -> llama2
+        if any(k in m for k in ["realista", "realism", "fotoreal", "photoreal", "foto", "photo"]):
+            return "llama2:7b-chat"
+        # Mensajes muy largos o complejos -> modelo más grande si está disponible
+        if len(m) > 300:
+            return "llama3:latest"
+        # Mensajes cortos o queries rápidas -> phi por rapidez
+        return "phi"
+    except:
+        # Fallback seguro
+        return "phi"
+
 @app.post("/api/ai/chat")
 async def chat_with_ai(chat_request: ChatRequest):
-    """Chat general con modelos de Ollama - Mejorado con manejo de errores"""
+    """Chat general con modelos de Ollama - Mejorado con manejo de errores y agente automático"""
     try:
         # Validación adicional
         if not chat_request.message or len(chat_request.message.strip()) == 0:
@@ -752,17 +775,20 @@ async def chat_with_ai(chat_request: ChatRequest):
                 "detail": "Por favor envía un mensaje válido",
                 "suggestions": ["Escribe una pregunta", "Intenta con 'Hola'", "Describe lo que necesitas"]
             }
-        
-        # Usar modelo por defecto si no es válido
-        valid_models = ["phi", "mistral", "llama2:7b-chat", "llama3:latest", "codegemma:latest"]
-        model_to_use = chat_request.model if chat_request.model in valid_models else "phi"
-        
+
+        # Soportar 'auto' como selector automático de modelo
+        requested_model = chat_request.model or 'auto'
+        if requested_model == 'auto' or requested_model not in ["phi", "mistral", "llama2:7b-chat", "llama3:latest", "codegemma:latest"]:
+            model_to_use = choose_model_for_prompt(chat_request.message)
+        else:
+            model_to_use = requested_model
+
         result = await call_ollama(
             model=model_to_use,
             prompt=chat_request.message,
             context=chat_request.context or ""
         )
-        
+
         if result.get("success", True):
             return {
                 "response": result["response"],
@@ -781,7 +807,7 @@ async def chat_with_ai(chat_request: ChatRequest):
                 "status": "fallback",
                 "warning": f"Error {result.get('error', 'unknown')} - respuesta de fallback"
             }
-    
+
     except Exception as e:
         return {
             "response": "Lo siento, hubo un error procesando tu mensaje. Intenta nuevamente.",
