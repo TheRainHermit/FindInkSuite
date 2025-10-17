@@ -18,6 +18,7 @@ from slowapi import Limiter
 from services.supabase_service import get_table_rows
 from pydantic import BaseModel
 from sqlalchemy import func
+from services.notification_service import send_notification_email
 
 limiter = Limiter(key_func=get_remote_address)
 
@@ -204,6 +205,24 @@ def decide_appointment(
         raise HTTPException(status_code=400, detail="Decisión inválida")
     # Actualiza el estado
     updated = update_appointment_status(db, appointment_id, decision)
-    # Notifica al cliente (ver siguiente punto)
-    #notify_client_of_decision(db, appointment, decision)
+    send_notification_email(
+        to_email=appointment.client.email,
+        subject="Estado de tu cita",
+        body=f"Tu cita ha sido {decision}."
+    )
+    # Aquí podrías notificar al cliente si lo deseas
     return updated
+
+@router.delete("/{appointment_id}/cancel", status_code=status.HTTP_204_NO_CONTENT)
+def cancel_appointment(
+    appointment_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
+):
+    appointment = get_appointment_by_id(db, appointment_id)
+    if not appointment:
+        raise HTTPException(status_code=404, detail="Cita no encontrada")
+    if current_user.role != "admin":
+        raise HTTPException(status_code=403, detail="Solo el admin puede cancelar citas")
+    updated = update_appointment_status(db, appointment_id, "cancelled")
+    return

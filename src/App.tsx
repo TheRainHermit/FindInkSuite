@@ -47,6 +47,9 @@ const LoginForm = React.lazy(() => import("./components/LoginForm"));
 const RegisterPage = React.lazy(
   () => import("./pages/FindInk_InkFlowCRMAI/RegisterPage")
 );
+const AppointmentRequestPage = React.lazy(
+  () => import("./pages/FindInk_InkFlowCRMAI/AppointmentRequestPage")
+);
 
 const GlobalError = () => {
   const { error, setError } = useError();
@@ -112,6 +115,7 @@ const App = () => {
                     <Route path="assistant" element={<Assistant />} />
                     <Route path="portfolio" element={<Portfolio />} />
                     <Route path="artists" element={<Artists />} />
+                    <Route path="/crm/appointments/request" element={<AppointmentRequestPage />} />
                   </Route>
                 </Route>
                 <Route path="*" element={<NotFound />} />

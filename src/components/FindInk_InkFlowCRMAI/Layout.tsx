@@ -1,6 +1,6 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Users, Calendar, Sparkles, Image, Menu, User } from "lucide-react";
+import { LayoutDashboard, Users, Calendar, CalendarPlus, Sparkles, Image, Menu, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import HomeHeader from "../HomeHeader";
@@ -11,6 +11,7 @@ const navItems = [
 	{ icon: Calendar, label: "Calendario", path: "/crm/calendar" },
 	{ icon: Sparkles, label: "Asistente AI", path: "/crm/assistant" },
 	{ icon: User, label: "Tatuadores", path: "/crm/artists" },
+	{ icon: CalendarPlus, label: "Solicitar Cita", path: "/crm/appointments/request" },
 ];
 
 const Layout = () => {

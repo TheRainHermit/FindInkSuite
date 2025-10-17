@@ -1,3 +1,17 @@
+import smtplib
+from email.message import EmailMessage
+
+def send_notification_email(to_email, subject, body):
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = "noreply@findink.co"
+    msg["To"] = to_email
+    msg.set_content(body)
+    # Configura tu servidor SMTP aquí
+    with smtplib.SMTP_SSL("smtp.tu-servidor.com", 465) as smtp:
+        smtp.login("usuario", "contraseña")
+        smtp.send_message(msg)
+
 def notify_client_of_decision(db, appointment, decision):
     client = db.query(Client).filter(Client.id == appointment.client_id).first()
     if not client:

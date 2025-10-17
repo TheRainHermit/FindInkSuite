@@ -4,7 +4,10 @@ import { apiFetch } from "../../lib/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, Plus, Clock, ChevronLeft, ChevronRight } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Spinner from "@/components/ui/spinner";
+import Modal from "@/components/ui/modal";
+import { toast } from "react-toastify";
 
 type Appointment = {
   id: number;
@@ -12,8 +15,9 @@ type Appointment = {
   client: string;
   service: string;
   duration: string;
-  status: "confirmed" | "pending";
+  status: "confirmed" | "pending" | "accepted" | "rejected" | "cancelled";
   date: string; // formato: "YYYY-MM-DD"
+  artist?: string;
 };
 
 const days = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
@@ -32,31 +36,90 @@ const monthNames = [
   "Diciembre",
 ];
 
-async function fetchAppointments(jwt: string | null): Promise<Appointment[]> {
-  if (!jwt) throw new Error("No autenticado");
-  return apiFetch<Appointment[]>("/appointments", jwt);
-}
-
 function getDaysInMonth(year: number, month: number) {
   return new Date(year, month + 1, 0).getDate();
 }
 
 export default function CalendarPage() {
-  const { jwt } = useAuth();
-  const { data: appointments = [], isLoading, error } = useQuery<Appointment[]>({
-    queryKey: ["appointments", jwt],
-    queryFn: () => fetchAppointments(jwt),
-    enabled: !!jwt,
-  });
+  const { jwt, user } = useAuth();
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loadingId, setLoadingId] = useState<number | null>(null);
+  const [confirmCancelId, setConfirmCancelId] = useState<number | null>(null);
 
+  // Cargar citas según el rol
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        let url = "http://localhost:8001/api/appointments/";
+        if (user.role === "client") url += "?client_id=" + user.id;
+        if (user.role === "artist") url += "?artist_id=" + user.id;
+        // admin ve todas
+        const response = await fetch(url, {
+          headers: { Authorization: `Bearer ${jwt}` },
+        });
+        const data = await response.json();
+        setAppointments(data);
+      } catch (err) {
+        setError("Error al cargar citas");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    if (jwt && user) fetchData();
+  }, [user, jwt]);
+
+  // Acciones para aceptar/rechazar/cancelar
+  const handleDecision = async (id: number, decision: "accepted" | "rejected") => {
+    try {
+      await fetch(`http://localhost:8001/api/appointments/${id}/decision`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt}`,
+        },
+        body: JSON.stringify({ decision }),
+      });
+      // Refresca citas
+      setAppointments((prev) =>
+        prev.map((apt) =>
+          apt.id === id ? { ...apt, status: decision } : apt
+        )
+      );
+      toast.success(`Cita ${decision === "accepted" ? "aceptada" : "rechazada"} correctamente`);
+    } catch {
+      alert("Error al actualizar la cita");
+      toast.error("Error de red al actualizar la cita");
+    }
+  };
+
+  const handleCancel = async (id: number) => {
+    try {
+      await fetch(`http://localhost:8001/api/appointments/${id}/cancel`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+      setAppointments((prev) =>
+        prev.map((apt) =>
+          apt.id === id ? { ...apt, status: "cancelled" } : apt
+        )
+      );
+      toast.success("Cita cancelada correctamente");
+    } catch {
+      alert("Error al cancelar la cita");
+      toast.error("Error al cancelar la cita");
+    }
+  };
+
+  // Calendario
   const today = new Date();
   const [selectedMonth, setSelectedMonth] = useState(today.getMonth());
   const [selectedYear, setSelectedYear] = useState(today.getFullYear());
   const [selectedDay, setSelectedDay] = useState(today.getDate());
-
   const daysInMonth = getDaysInMonth(selectedYear, selectedMonth);
-
-  // Fecha seleccionada en formato YYYY-MM-DD
   const selectedDate = new Date(selectedYear, selectedMonth, selectedDay)
     .toISOString()
     .slice(0, 10);
@@ -98,10 +161,16 @@ export default function CalendarPage() {
             Gestiona tus citas y disponibilidad
           </p>
         </div>
-        <Button className="bg-gradient-to-r from-[hsl(var(--ink-purple))] to-[hsl(var(--ink-cyan))] hover:opacity-90 transition-all gap-2">
-          <Plus className="h-4 w-4" />
-          Nueva Cita
-        </Button>
+        {/* Botón para solicitar nueva cita solo para cliente/admin */}
+        {(user.role === "client" || user.role === "admin") && (
+          <Button
+            className="bg-gradient-to-r from-[hsl(var(--ink-purple))] to-[hsl(var(--ink-cyan))] hover:opacity-90 transition-all gap-2"
+            onClick={() => window.location.href = "/crm/appointments/request"}
+          >
+            <Plus className="h-4 w-4" />
+            Nueva Cita
+          </Button>
+        )}
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
@@ -189,18 +258,78 @@ export default function CalendarPage() {
                     <p className="text-sm text-muted-foreground">
                       {apt.service}
                     </p>
+                    {apt.artist && (
+                      <p className="text-xs text-muted-foreground">
+                        Tatuador: {apt.artist}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <span
                       className={`text-xs px-2 py-1 rounded-full ${
-                        apt.status === "confirmed"
+                        apt.status === "confirmed" || apt.status === "accepted"
                           ? "bg-[hsl(var(--ink-cyan)/0.2)] text-[hsl(var(--ink-cyan))]"
-                          : "bg-[hsl(var(--ink-magenta)/0.2)] text-[hsl(var(--ink-magenta))]"
+                          : apt.status === "pending"
+                          ? "bg-[hsl(var(--ink-magenta)/0.2)] text-[hsl(var(--ink-magenta))]"
+                          : apt.status === "rejected"
+                          ? "bg-red-100 text-red-600"
+                          : "bg-gray-200 text-gray-600"
                       }`}
                     >
-                      {apt.status === "confirmed" ? "Confirmada" : "Pendiente"}
+                      {apt.status === "confirmed" || apt.status === "accepted"
+                        ? "Confirmada"
+                        : apt.status === "pending"
+                        ? "Pendiente"
+                        : apt.status === "rejected"
+                        ? "Rechazada"
+                        : "Cancelada"}
                     </span>
                   </div>
+                  {/* Acciones según el rol */}
+                  <div className="flex gap-2 mt-2">
+                    {user.role === "artist" && apt.status === "pending" && (
+                      <>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleDecision(apt.id, "accepted")}
+                        >
+                          Aceptar
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={() => handleDecision(apt.id, "rejected")}
+                        >
+                          Rechazar
+                        </Button>
+                      </>
+                    )}
+                    {user.role === "admin" && apt.status !== "cancelled" && (
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        disabled={loadingId === apt.id}
+                        onClick={() => setConfirmCancelId(apt.id)}
+                      >
+                        {loadingId === apt.id ? <Spinner /> : "Cancelar"}
+                      </Button>
+                    )}
+                  </div>
+                  {confirmCancelId === apt.id && (
+                    <Modal
+                      onConfirm={() => {
+                        setLoadingId(apt.id);
+                        handleCancel(apt.id).finally(() => {
+                          setLoadingId(null);
+                          setConfirmCancelId(null);
+                        });
+                      }}
+                      onCancel={() => setConfirmCancelId(null)}
+                    >
+                      ¿Seguro que deseas cancelar esta cita?
+                    </Modal>
+                  )}
                 </div>
               ))}
             </div>
