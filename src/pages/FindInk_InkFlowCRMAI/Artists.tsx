@@ -72,7 +72,7 @@ export default function Artists() {
               {a.url && (
                 <div className="text-sm pt-3 border-t border-border/50">
                   <a href={a.url} target="_blank" rel="noreferrer" className="text-[hsl(var(--ink-cyan))] underline">
-                    Ver perfil en FindInk
+                    Ver perfil en su sitio
                   </a>
                 </div>
               )}

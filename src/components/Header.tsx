@@ -11,8 +11,8 @@ const Header = () => {
       aria-label={t("headerNavigation")}
       className="w-full flex items-center justify-between px-6 py-4 bg-card border-b border-border"
     >
-      <img src="/logo.jpg" alt="Logo" className="h-10 w-10 mr-3" />
-      <span className="font-bold text-xl text-foreground">Tattoo Vision AI</span>
+      <img src="/skinnovationlogo.png" alt="Logo" className="h-10 w-10 mr-3" />
+      <span className="font-bold text-xl text-foreground">Skinnovation - Tattoo Vision AI</span>
       <div className="container mx-auto flex justify-center items-center">
         
         <nav className="flex gap-8" aria-label={t("mainNavigation")}>

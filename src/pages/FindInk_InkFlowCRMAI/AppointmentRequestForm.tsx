@@ -59,14 +59,14 @@ const AppointmentRequestForm = ({ artistId }: { artistId: number }) => {
         value={date}
         onChange={e => setDate(e.target.value)}
         required
-        className="mb-2 p-2 border rounded w-full"
+        className="mb-2 p-2 border rounded w-full text-black"
       />
       <textarea
         value={description}
         onChange={e => setDescription(e.target.value)}
         placeholder="Describe tu idea"
         required
-        className="mb-2 p-2 border rounded w-full"
+        className="mb-2 p-2 border rounded w-full text-black"
       />
       <button
         type="submit"

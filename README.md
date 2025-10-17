@@ -1,4 +1,4 @@
-# FindInkSuite 🎨<<<<<<< HEAD
+# FindInkSuite 🎨
 
 # 🎨 FindInkSuite - Sistema de Gestión de Tatuajes# 🎯 SERVIDOR TATTOO HACKATHON - PROYECTO DEFINITIVO
 

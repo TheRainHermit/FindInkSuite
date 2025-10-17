@@ -11,7 +11,7 @@ PORT = 8001
 
 app = FastAPI(
     title="🎨 Sistema de Gestión de Tatuajes",
-    description="API modular para FindInkSuite",
+    description="API modular para Skinnovation Suite",
     version="2.0.0"
 )
 

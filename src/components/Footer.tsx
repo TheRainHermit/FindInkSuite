@@ -11,16 +11,16 @@ const Footer = () => {
         {/* Columna 1: Logo */}
         <div className="flex flex-col items-center justify-center text-center h-full">
           <img
-            src="/logo.jpg"
+            src="/skinnovationlogo.png"
             alt="Tattoo Vision AI Logo"
-            className="w-24 h-24 mb-3 mx-auto rounded-full shadow-lg object-cover"
+            className="w-50 h-50 mb-3 mx-auto rounded-full shadow-lg object-cover"
           />
           <span className="text-base text-muted-foreground mt-2">{t("footerTagline")}</span>
         </div>
         {/* Columna 2: Descripción */}
         <div className="flex flex-col items-start md:items-start text-center md:text-left">
           <h3 className="font-bold text-lg mb-2 text-foreground">
-            Tattoo Vision AI
+            Skinnovation - Tattoo Vision AI
           </h3>
           <p className="mb-4">{t("footerDescription")}</p>
           <div className="flex gap-4 mt-2">
@@ -99,7 +99,7 @@ const Footer = () => {
           <ul className="space-y-2 text-sm">
             <li className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
-              <a href="mailto:info@findink.co" className="hover:text-primary transition">info@findink.co</a>
+              <a href="mailto:info@skinnovation.co" className="hover:text-primary transition">info@skinnovation.co</a>
             </li>
             <li className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
@@ -116,7 +116,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="max-w-6xl mx-auto mt-10 text-center text-xs text-muted-foreground">
-        © 2025 Tattoo Vision AI. {t("allRightsReserved")}
+        © 2025 Skinnovation. {t("allRightsReserved")}
       </div>
     </footer>
   );

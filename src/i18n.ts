@@ -6,7 +6,7 @@ i18n.use(initReactI18next).init({
     es: {
       translation: {
         homepage: {
-          title: "Bienvenido a FindInk Suite",
+          title: "Bienvenido a Skinnovation Suite",
           subtitle: "Elige el módulo que deseas explorar:",
           tattooVisionTitle: "Tattoo Vision",
           tattooVisionDesc: "Genera vistas previas de tatuajes con IA.",
@@ -126,7 +126,7 @@ i18n.use(initReactI18next).init({
           "Implementamos medidas de seguridad para proteger tus datos y nunca compartimos tu información con terceros sin tu consentimiento.",
         privacyPolicySection4Title: "Tus derechos",
         privacyPolicySection4Content:
-          "Puedes solicitar la eliminación o modificación de tus datos en cualquier momento contactándonos a info@findink.co.",
+          "Puedes solicitar la eliminación o modificación de tus datos en cualquier momento contactándonos a info@skinnovation.co.",
         privacyPolicySection5Title: "Cambios en la política",
         privacyPolicySection5Content:
           "Nos reservamos el derecho de modificar esta política. Te notificaremos sobre cambios importantes.",
@@ -138,7 +138,7 @@ i18n.use(initReactI18next).init({
           "La plataforma está destinada únicamente para fines personales y no comerciales. No está permitido el uso indebido o la distribución de contenido generado.",
         termsOfUseSection2Title: "Propiedad intelectual",
         termsOfUseSection2Content:
-          "Todos los derechos sobre el software, diseño y contenido pertenecen a Tattoo Vision AI y FindInk.",
+          "Todos los derechos sobre el software, diseño y contenido pertenecen a Tattoo Vision AI y Skinnovation.",
         termsOfUseSection3Title: "Limitación de responsabilidad",
         termsOfUseSection3Content:
           "No garantizamos la precisión de los resultados generados por IA. El uso de la plataforma es bajo tu propio riesgo.",
@@ -147,7 +147,7 @@ i18n.use(initReactI18next).init({
           "Podemos modificar estos términos en cualquier momento. El uso continuado implica aceptación de los cambios.",
         termsOfUseSection5Title: "Contacto",
         termsOfUseSection5Content:
-          "Para dudas o reclamaciones, contáctanos en info@findink.co.",
+          "Para dudas o reclamaciones, contáctanos en info@skinnovation.co.",
         apiTest: "Prueba de API",
         // ...otros textos
       },
@@ -155,7 +155,7 @@ i18n.use(initReactI18next).init({
     en: {
       translation: {
         homepage: {
-          title: "Welcome to FindInk Suite",
+          title: "Welcome to Skinnovation Suite",
           subtitle: "Choose the module you want to explore:",
           tattooVisionTitle: "Tattoo Vision",
           tattooVisionDesc: "Generate tattoo previews with AI.",
@@ -274,7 +274,7 @@ i18n.use(initReactI18next).init({
           "We implement security measures to protect your data and never share your information with third parties without your consent.",
         privacyPolicySection4Title: "Your Rights",
         privacyPolicySection4Content:
-          "You may request deletion or modification of your data at any time by contacting info@findink.co.",
+          "You may request deletion or modification of your data at any time by contacting info@skinnovation.co.",
         privacyPolicySection5Title: "Policy Changes",
         privacyPolicySection5Content:
           "We reserve the right to modify this policy. We will notify you of significant changes.",
@@ -286,7 +286,7 @@ i18n.use(initReactI18next).init({
           "The platform is intended for personal, non-commercial use only. Misuse or distribution of generated content is not allowed.",
         termsOfUseSection2Title: "Intellectual Property",
         termsOfUseSection2Content:
-          "All rights to the software, design, and content belong to Tattoo Vision AI and FindInk.",
+          "All rights to the software, design, and content belong to Tattoo Vision AI and Skinnovation.",
         termsOfUseSection3Title: "Limitation of Liability",
         termsOfUseSection3Content:
           "We do not guarantee the accuracy of AI-generated results. Use of the platform is at your own risk.",
@@ -295,7 +295,7 @@ i18n.use(initReactI18next).init({
           "We may modify these terms at any time. Continued use implies acceptance of changes.",
         termsOfUseSection5Title: "Contact",
         termsOfUseSection5Content:
-          "For questions or claims, contact us at info@findink.co.",
+          "For questions or claims, contact us at info@skinnovation.co.",
         apiTest: "API Test",
         // ...other texts
       },

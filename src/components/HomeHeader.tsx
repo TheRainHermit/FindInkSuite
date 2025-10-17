@@ -13,8 +13,8 @@ const HomeHeader = () => {
       }}
     >
       <div className="flex items-center">
-        <img src="/logo.jpg" alt="Logo" className="h-10 w-10 mr-3" />
-        <span className="font-bold text-2xl text-foreground">FindInk Suite</span>
+        <img src="/skinnovationlogo.png" alt="Logo" className="h-10 w-10 mr-3" />
+        <span className="font-bold text-2xl text-foreground">Skinnovation Suite</span>
       </div>
       <div className="flex items-center">
         <label htmlFor="language-select" className="sr-only">

@@ -4,7 +4,7 @@ from email.message import EmailMessage
 def send_notification_email(to_email, subject, body):
     msg = EmailMessage()
     msg["Subject"] = subject
-    msg["From"] = "noreply@findink.co"
+    msg["From"] = "noreply@skinnovation.co"
     msg["To"] = to_email
     msg.set_content(body)
     # Configura tu servidor SMTP aquí
