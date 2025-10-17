@@ -44,6 +44,9 @@ const RealidadAumentada = React.lazy(
   () => import("./pages/Realidad_Aumentada/Index")
 );
 const LoginForm = React.lazy(() => import("./components/LoginForm"));
+const RegisterPage = React.lazy(
+  () => import("./pages/FindInk_InkFlowCRMAI/RegisterPage")
+);
 
 const GlobalError = () => {
   const { error, setError } = useError();
@@ -92,9 +95,14 @@ const App = () => {
             <Sonner />
             <Suspense fallback={<div>{t("loading")}</div>}>
               <Routes>
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/register" element={<RegisterPage />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/tattoovision" element={<TattooVision />} />
-                <Route path="/realidad-aumentada" element={<RealidadAumentada />} />
+                <Route
+                  path="/realidad-aumentada"
+                  element={<RealidadAumentada />}
+                />
                 {/* CRM protegido */}
                 <Route path="/crm" element={<ProtectedCRM />}>
                   <Route element={<Layout />}>

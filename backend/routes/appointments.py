@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status, Depends, Body, Request
-from typing import List
+from typing import List, Optional
 from sqlalchemy.orm import Session
-from models.orm_models import Appointment as AppointmentORM
+from models.orm_models import Appointment as AppointmentORM, Client, User
 from models.appointment import AppointmentCreate, AppointmentUpdate, AppointmentOut
 from services.appointment_service import (
     get_all_appointments,
@@ -16,10 +16,64 @@ from routes.auth import get_current_user
 from slowapi.util import get_remote_address
 from slowapi import Limiter
 from services.supabase_service import get_table_rows
+from pydantic import BaseModel
+from sqlalchemy import func
 
 limiter = Limiter(key_func=get_remote_address)
 
 router = APIRouter(prefix="/api/appointments", tags=["Appointments"])
+
+class AppointmentRequest(BaseModel):
+    client_id: int
+    artist_id: int
+    date: str  # formato ISO: "2025-10-20T15:00"
+    duration: Optional[int] = None
+    notes: Optional[str] = None
+
+@router.post("/request", status_code=status.HTTP_201_CREATED)
+def request_appointment(data: AppointmentRequest, db: Session = Depends(get_db)):
+    # Verifica que el cliente exista
+    client = db.query(Client).filter(Client.id == data.client_id).first()
+    if not client:
+        raise HTTPException(status_code=404, detail="Cliente no encontrado")
+    # Verifica que el artista exista
+    artist = db.query(User).filter(User.id == data.artist_id, User.role == "artist").first()
+    if not artist:
+        raise HTTPException(status_code=404, detail="Artista no encontrado")
+    # Validación de solapamiento de citas
+    from datetime import datetime, timedelta
+
+    # Duración por defecto: 1 hora si no se especifica
+    duration = data.duration if data.duration else 60
+    start_time = datetime.fromisoformat(data.date)
+    end_time = start_time + timedelta(minutes=duration)
+
+    overlapping = db.query(AppointmentORM).filter(
+        AppointmentORM.user_id == data.artist_id,
+        AppointmentORM.status.in_(["scheduled", "confirmed"]),
+        AppointmentORM.date < end_time,
+        (AppointmentORM.date + func.coalesce(AppointmentORM.duration, 60) * func.interval('1 minute')) > start_time
+    ).first()
+
+    if overlapping:
+        raise HTTPException(
+            status_code=409,
+            detail="El artista ya tiene una cita en ese horario. Por favor elige otro horario."
+        )
+
+    # Crea la cita en estado "scheduled"
+    appointment = AppointmentORM(
+        client_id=data.client_id,
+        user_id=data.artist_id,
+        date=data.date,
+        duration=data.duration,
+        status="scheduled",
+        notes=data.notes
+    )
+    db.add(appointment)
+    db.commit()
+    db.refresh(appointment)
+    return {"message": "Solicitud de cita enviada. Un tatuador revisará tu solicitud.", "appointment_id": appointment.id}
 
 @router.get("/supabase-appointments")
 def get_supabase_appointments(current_user=Depends(get_current_user)):
@@ -132,3 +186,24 @@ def delete_appointment_endpoint(
     if not deleted:
         raise HTTPException(status_code=404, detail="Cita no encontrada")
     return
+
+@router.put("/{appointment_id}/decision", response_model=AppointmentOut)
+def decide_appointment(
+    appointment_id: int,
+    decision: str = Body(..., embed=True, description="accepted o rejected"),
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
+):
+    appointment = get_appointment_by_id(db, appointment_id)
+    if not appointment:
+        raise HTTPException(status_code=404, detail="Cita no encontrada")
+    # Solo el artista asignado o admin puede decidir
+    if current_user.role == "artist" and appointment.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="No autorizado")
+    if decision not in ["accepted", "rejected"]:
+        raise HTTPException(status_code=400, detail="Decisión inválida")
+    # Actualiza el estado
+    updated = update_appointment_status(db, appointment_id, decision)
+    # Notifica al cliente (ver siguiente punto)
+    #notify_client_of_decision(db, appointment, decision)
+    return updated

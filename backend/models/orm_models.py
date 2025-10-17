@@ -28,12 +28,17 @@ class Client(Base):
     __tablename__ = "clients"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(100), nullable=False)
-    email = Column(String(120))
+    age = Column(Integer)
+    gender = Column(String(20))
+    email = Column(String(120), unique=True, index=True)
     phone = Column(String(20))
-    style = Column(String(50))
-    notes = Column(Text)
-    created_at = Column(TIMESTAMP)
+    city = Column(String(100))
+    birthdate = Column(String(20))
+    # Preferencias y respuestas del formulario completo
+    preferences = Column(JSON)  # Guarda todas las respuestas adicionales como JSON
+    created_at = Column(TIMESTAMP, server_default=func.now())
 
+    # Relaciones
     appointments = relationship("Appointment", back_populates="client")
     portfolio = relationship("Portfolio", back_populates="client")
     visits = relationship("ClientVisit", back_populates="client")

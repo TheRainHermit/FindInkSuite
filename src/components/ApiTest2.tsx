@@ -10,7 +10,7 @@ const ApiTest = () => {
     setError(null);
     try {
       const response = await fetch(
-        "https://tattoo-hackathon-1006.loca.lt/api/ai/models",
+        "https://bright-clubs-spend.loca.lt/",
         {
           headers: {
             Accept: "application/json",
@@ -40,7 +40,7 @@ const ApiTest = () => {
     setError(null);
     try {
       const response = await fetch(
-        "https://tattoo-hackathon-1006.loca.lt/api/ai/chat",
+        "https://bright-clubs-spend.loca.lt/",
         {
           method: "POST",
           headers: {

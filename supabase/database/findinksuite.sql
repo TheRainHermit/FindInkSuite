@@ -138,3 +138,5 @@ UPDATE users SET password_hash = '$2b$12$JPDpDqztOMI9Jj0mApr9FeOFTAvV.Uf3HrT1sg1
 UPDATE users SET password_hash = '$2b$12$JPDpDqztOMI9Jj0mApr9FeOFTAvV.Uf3HrT1sg1PXpCzUZXwQgmpe' WHERE email = 'eli@ink.com';
 
 UPDATE users SET role = 'admin' WHERE email = 'sofia.martinez@ink.com';
+
+ALTER TABLE clients ADD COLUMN preferences JSON;
