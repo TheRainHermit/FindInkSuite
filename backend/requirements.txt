@@ -13,3 +13,5 @@ psycopg2
 pydantic[email]
 slowapi
 supabase
+psycopg2-binary
+
