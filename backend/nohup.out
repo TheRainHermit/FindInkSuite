@@ -1,0 +1,32 @@
+nohup: no se tendrá en cuenta la entrada
+INFO:     Started server process [45149]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+🎨 SERVIDOR IP PÚBLICA DIRECTA - Sistema de Gestión de Tatuajes
+================================================================================
+🌐 IP Pública: 190.217.23.26
+🏠 IP Local:   192.168.101.71
+🔌 Puerto:     8001
+================================================================================
+🔗 URLs para tu compañero:
+   📚 Documentación: http://190.217.23.26:8001/docs
+   🔗 API Base:      http://190.217.23.26:8001/api
+   ❤️  Estado:       http://190.217.23.26:8001/status
+   📋 Info Completa: http://190.217.23.26:8001/api/connection-info
+================================================================================
+🔑 Usuarios de prueba:
+   📧 juan@tattoo.com | 🔑 123456 | 👨‍🎨 artist
+   📧 maria@tattoo.com | 🔑 admin123 | 👩‍💼 admin
+================================================================================
+⚠️  IMPORTANTE:
+   Asegúrate de tener configurado Port Forwarding en tu router:
+   Puerto externo: 8001 → IP interna: 192.168.101.71:8001
+================================================================================
+🧪 Prueba de conexión:
+   curl http://190.217.23.26:8001/status
+================================================================================
+🚀 Iniciando servidor...
+INFO:     127.0.0.1:56468 - "GET /api/ai/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56482 - "POST /api/ai/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42864 - "GET /api/ai/models HTTP/1.1" 200 OK
