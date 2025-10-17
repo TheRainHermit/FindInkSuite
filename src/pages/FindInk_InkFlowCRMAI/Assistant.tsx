@@ -8,7 +8,7 @@ import * as chrono from "chrono-node";
 
 async function callAIChat(messages: {role: string, content: string}[]) {
   try {
-    const res = await fetch("https://dirty-hornets-move.loca.it/api/ai/chat", {
+    const res = await fetch("https://afraid-signs-turn.loca.lt/api/ai/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages }),
