@@ -42,9 +42,9 @@ export default function LoginForm() {
     const successLogin = await login(email, password);
     if (!successLogin) {
       setError("Correo o contraseña incorrectos");
-    }else {
+    } else {
       navigate("/crm"); // <-- Redirige al dashboard
-    }
+    }
   };
 
   const handleRecovery = async (e: React.FormEvent) => {
