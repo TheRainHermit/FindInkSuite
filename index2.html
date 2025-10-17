@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InkAI Pro - AR Avanzado</title>
+    <style>
+        :root {
+            --primary: #ff6b35;
+            --secondary: #8a2be2;
+            --dark: #1a1a1a;
+            --darker: #0f0f0f;
+            --light: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 3px solid var(--primary);
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 25px;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            color: var(--primary);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-block {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        /* AR Camera Container */
+        .ar-camera-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        #arVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1);
+        }
+
+        #arCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .ar-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+            background: var(--secondary);
+        }
+
+        /* Portfolio Grid con Fotos */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .portfolio-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-item:hover, .portfolio-item.active {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .tattoo-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #333, #555);
+            transition: all 0.3s;
+        }
+
+        .portfolio-item:hover .tattoo-image {
+            transform: scale(1.05);
+        }
+
+        .tattoo-placeholder {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(45deg, #333, #555);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-info {
+            padding: 10px 0;
+        }
+
+        .portfolio-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--light);
+        }
+
+        .portfolio-style {
+            font-size: 0.8em;
+            color: #ccc;
+            background: rgba(255,107,53,0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* Filtros */
+        .portfolio-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--light);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        /* Skin Tone Selector */
+        .skin-tones {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .skin-tone {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .skin-tone.active {
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--primary);
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Image Upload Section */
+        .image-upload-section {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px dashed rgba(255,255,255,0.2);
+        }
+
+        .upload-btn {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .ar-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="nav">
+            <div class="logo">🎨 findink.co</div>
+            <div style="color: var(--light); font-size: 1.2em;">
+                Portfolio con Fotos Reales
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="dashboard">
+            <!-- Sidebar de Controles -->
+            <div class="sidebar">
+                <div class="card">
+                    <h3 style="color: var(--primary); margin-bottom: 20px;">🎯 Controles AR</h3>
+                    
+                    <button class="btn btn-block" onclick="toggleARCamera()" id="cameraBtn">
+                        📷 Activar Cámara AR
+                    </button>
+
+                    <div style="margin: 20px 0;">
+                        <label style="display: block; margin-bottom: 10px; color: var(--primary);">
+                            💪 Parte del Cuerpo:
+                        </label>
+                        <select id="bodyPart" onchange="updateTattooPosition()" style="width: 100%; padding: 10px; border-radius: 8px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                            <option value="brazo">Brazo</option>
+                            <option value="pierna">Pierna</option>
+                            <option value="pecho">Pecho</option>
+                            <option value="espalda">Espalda</option>
+                            <option value="muneca">Muñeca</option>
+                        </select>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <label style="display: block; margin-bottom: 10px; color: var(--primary);">
+                            🎨 Tono de Piel:
+                        </label>
+                        <div class="skin-tones">
+                            <div class="skin-tone active" style="background: #FFDBB5;" onclick="selectSkinTone('#FFDBB5')"></div>
+                            <div class="skin-tone" style="background: #E8B796;" onclick="selectSkinTone('#E8B796')"></div>
+                            <div class="skin-tone" style="background: #D2A579;" onclick="selectSkinTone('#D2A579')"></div>
+                            <div class="skin-tone" style="background: #BA8C64;" onclick="selectSkinTone('#BA8C64')"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <label style="display: block; margin-bottom: 10px; color: var(--primary);">
+                            📏 Tamaño Tatuaje:
+                        </label>
+                        <input type="range" id="tattooSize" min="50" max="200" value="100" oninput="updateTattooSize(this.value)" style="width: 100%;">
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <label style="display: block; margin-bottom: 10px; color: var(--primary);">
+                            🔄 Rotación:
+                        </label>
+                        <input type="range" id="tattooRotation" min="0" max="360" value="0" oninput="updateTattooRotation(this.value)" style="width: 100%;">
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <label style="display: block; margin-bottom: 10px; color: var(--primary);">
+                            🌫️ Opacidad:
+                        </label>
+                        <input type="range" id="tattooOpacity" min="20" max="100" value="80" oninput="updateTattooOpacity(this.value)" style="width: 100%;">
+                    </div>
+
+                    <button class="btn btn-block" onclick="captureARPhoto()" style="background: #28a745;">
+                        📸 Capturar Foto AR
+                    </button>
+
+                    <button class="btn btn-block" onclick="resetAR()" style="background: #666; margin-top: 10px;">
+                        🔄 ReiniciAR AR
+                    </button>
+                </div>
+
+                <!-- Sección para agregar nuevas fotos -->
+                <div class="image-upload-section">
+                    <h4 style="color: var(--primary); margin-bottom: 15px;">➕ Agregar Nuevo Tatuaje</h4>
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+                    <button class="upload-btn" onclick="document.getElementById('imageUpload').click()">
+                        📁 Subir Foto
+                    </button>
+                    <div style="margin-top: 10px;">
+                        <input type="text" id="imageUrl" placeholder="https://app.findink.co/_next/image?url=https%3A%2F%2Ffindink-images-bucket.s3.us-east-2.amazonaws.com%2Fsmall_tattoo_03523390b8.png&w=384&q=75" style="width: 100%; padding: 8px; border-radius: 5px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                        <button class="upload-btn" onclick="addImageFromUrl()" style="background: #17a2b8; margin-top: 5px;">
+                            🌐 Cargar desde URL
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Portfolio Section -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📚 Portfolio de Tatuajes Reales</h2>
+                        <div class="btn" onclick="filterPortfolio('all')">🔄 Mostrar Todos</div>
+                    </div>
+
+                    <!-- Filtros -->
+                    <div class="portfolio-filters">
+                        <button class="filter-btn active" onclick="filterPortfolio('all')">Todos</button>
+                        <button class="filter-btn" onclick="filterPortfolio('japones')">Japonés</button>
+                        <button class="filter-btn" onclick="filterPortfolio('geometrico')">Geométrico</button>
+                        <button class="filter-btn" onclick="filterPortfolio('realismo')">Realismo</button>
+                        <button class="filter-btn" onclick="filterPortfolio('minimalista')">Minimalista</button>
+                        <button class="filter-btn" onclick="filterPortfolio('tribal')">Tribal</button>
+                        <button class="filter-btn" onclick="filterPortfolio('acuarela')">Acuarela</button>
+                    </div>
+
+                    <div class="portfolio-grid" id="portfolioGrid">
+                        <!-- Los tatuajes se cargan dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- AR Camera Section -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">👁️ Realidad Aumentada en Tiempo Real</h2>
+                        <div class="btn" id="arStatus" style="background: #dc3545;">AR Inactivo</div>
+                    </div>
+
+                    <div class="ar-camera-container">
+                        <video id="arVideo" autoplay playsinline></video>
+                        <canvas id="arCanvas"></canvas>
+                        
+                        <div class="ar-controls">
+                            <button class="control-btn" onclick="adjustTattooPosition(-10, 0)">⬅️</button>
+                            <button class="control-btn" onclick="adjustTattooPosition(10, 0)">➡️</button>
+                            <button class="control-btn" onclick="adjustTattooPosition(0, -10)">⬆️</button>
+                            <button class="control-btn" onclick="adjustTattooPosition(0, 10)">⬇️</button>
+                            <button class="control-btn" onclick="toggleTattooVisibility()">👁️</button>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 15px; color: #ccc;">
+                        <p>💡 <strong>InstAR.AR activo:</strong> El tatuaje se superpone en tiempo real sobre tu piel</p>
+                        <p>Usa los controles para ajustar posición, tamaño y rotación</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Estado de la aplicación AR
+        const ARState = {
+            active: false,
+            currentTattoo: null,
+            videoStream: null,
+            position: { x: 0, y: 0 },
+            size: 100,
+            rotation: 0,
+            opacity: 80,
+            visible: true,
+            skinTone: '#FFDBB5',
+            bodyPart: 'brazo',
+            tattooImage: null
+        };
+
+        // Elementos DOM
+        const arVideo = document.getElementById('arVideo');
+        const arCanvas = document.getElementById('arCanvas');
+        const arCtx = arCanvas.getContext('2d');
+        const cameraBtn = document.getElementById('cameraBtn');
+        const arStatus = document.getElementById('arStatus');
+        const portfolioGrid = document.getElementById('portfolioGrid');
+
+        // Datos del portfolio CON FOTOS REALES
+        const tattooDesigns = [
+            {
+                id: 1,
+                name: "Dragón Japonés",
+                style: "japones",
+                imageUrl: "./images/tattoos/pngwing.png",
+                description: "Tatuaje tradicional japonés con dragón y olas"
+            },
+            {
+                id: 2,
+                name: "Geométrico Tribal",
+                style: "geometrico",
+                imageUrl: "images/tattoos/pngwing5.png",
+                description: "Patrones geométricos inspirados en arte tribal"
+            },
+            {
+                id: 3,
+                name: "Colibrí Realista",
+                style: "realismo",
+                imageUrl: "images/tattoos/580b57fbd9996e24bc43bb61.png",
+                description: "Rosa con sombreado realista y detalles"
+            },
+            {
+                id: 4,
+                name: "Mandalas",
+                style: "geometrico",
+                imageUrl: "images/tattoos/Mandala.png",
+                description: "Diseño de mandalas simétricas"
+            },
+            {
+                id: 5,
+                name: "Minimalista",
+                style: "minimalista",
+                imageUrl: "images/tattoos/111.png",
+                description: "Líneas simples y elegantes"
+            },
+            {
+                id: 6,
+                name: "Tribal Moderno",
+                style: "tribal",
+                imageUrl: "images/tattoos/klipartz.com.png",
+                description: "Patrones tribales con diseño contemporáneo"
+            },
+            {
+                id: 7,
+                name: "Acuarela Abstracta",
+                style: "acuarela",
+                imageUrl: "images/tattoos/580b585b2edbce24c47b249d.png",
+                description: "Efectos de acuarela con colores fluidos"
+            },
+            {
+                id: 8,
+                name: "Realista",
+                style: "lettering",
+                imageUrl: "images/tattoos/pngwing4.png",
+                description: "Caligrafía artística y elegante"
+            }
+        ];
+
+        // Inicialización
+        function init() {
+            loadPortfolio();
+            setupCanvas();
+        }
+
+        function loadPortfolio() {
+            portfolioGrid.innerHTML = tattooDesigns.map(tattoo => `
+                <div class="portfolio-item" onclick="selectTattoo(${tattoo.id})" data-style="${tattoo.style}">
+                    <div class="tattoo-image-container">
+                        <img src="${tattoo.imageUrl}" 
+                             alt="${tattoo.name}" 
+                             class="tattoo-image"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTUwIiBmaWxsPSIjMzMzIi8+CjxwYXRoIGQ9Ik04MCA2MEgxMjBNMTAwIDQwVjgwIiBzdHJva2U9IiM2NjYiIHN0cm9rZS13aWR0aD0iMiIvPgo8dGV4dCB4PSIxMDAiIHk9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzk5OSIgZm9udC1zaXplPSIxMiI+JHt0YXR0b28ubmFtZX08L3RleHQ+Cjwvc3ZnPg=='">
+                    </div>
+                    <div class="portfolio-info">
+                        <div class="portfolio-name">${tattoo.name}</div>
+                        <div class="portfolio-style">${tattoo.style}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setupCanvas() {
+            arCanvas.width = 640;
+            arCanvas.height = 480;
+        }
+
+        // Control de cámara AR
+        async function toggleARCamera() {
+            if (ARState.active) {
+                stopARCamera();
+            } else {
+                await startARCamera();
+            }
+        }
+
+        async function startARCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: 'environment',
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    }
+                });
+
+                ARState.videoStream = stream;
+                arVideo.srcObject = stream;
+                ARState.active = true;
+
+                arVideo.addEventListener('loadedmetadata', () => {
+                    arCanvas.width = arVideo.videoWidth;
+                    arCanvas.height = arVideo.videoHeight;
+                    startARRender();
+                });
+
+                cameraBtn.innerHTML = '📷 Detener Cámara AR';
+                cameraBtn.style.background = '#dc3545';
+                arStatus.innerHTML = 'AR Activo';
+                arStatus.style.background = '#28a745';
+
+            } catch (error) {
+                console.error('Error al acceder a la cámara:', error);
+                alert('No se pudo acceder a la cámara. Asegúrate de permitir el acceso.');
+            }
+        }
+
+        function stopARCamera() {
+            if (ARState.videoStream) {
+                ARState.videoStream.getTracks().forEach(track => track.stop());
+                ARState.videoStream = null;
+            }
+
+            ARState.active = false;
+            arVideo.srcObject = null;
+            cameraBtn.innerHTML = '📷 Activar Cámara AR';
+            cameraBtn.style.background = '';
+            arStatus.innerHTML = 'AR Inactivo';
+            arStatus.style.background = '#dc3545';
+
+            arCtx.clearRect(0, 0, arCanvas.width, arCanvas.height);
+        }
+
+        // Renderizado AR en tiempo real
+        function startARRender() {
+            function render() {
+                if (ARState.active && arVideo.readyState === arVideo.HAVE_ENOUGH_DATA) {
+                    arCtx.drawImage(arVideo, 0, 0, arCanvas.width, arCanvas.height);
+
+                    if (ARState.currentTattoo && ARState.visible && ARState.tattooImage) {
+                        drawTattooOnSkin();
+                    }
+
+                    drawARGuidelines();
+                }
+                requestAnimationFrame(render);
+            }
+            render();
+        }
+
+        function drawTattooOnSkin() {
+            const centerX = arCanvas.width / 2 + ARState.position.x;
+            const centerY = arCanvas.height / 2 + ARState.position.y;
+            const size = ARState.size;
+
+            arCtx.save();
+            arCtx.translate(centerX, centerY);
+            arCtx.rotate(ARState.rotation * Math.PI / 180);
+            arCtx.globalAlpha = ARState.opacity / 100;
+
+            // Dibujar imagen del tatuaje
+            const imgSize = size * 2;
+            arCtx.drawImage(ARState.tattooImage, -imgSize/2, -imgSize/2, imgSize, imgSize);
+
+            arCtx.restore();
+        }
+
+        function drawARGuidelines() {
+            const centerX = arCanvas.width / 2;
+            const centerY = arCanvas.height / 2;
+
+            arCtx.save();
+            arCtx.strokeStyle = '#00ff00';
+            arCtx.lineWidth = 2;
+            arCtx.setLineDash([5, 5]);
+
+            arCtx.beginPath();
+            arCtx.arc(centerX, centerY, 80, 0, Math.PI * 2);
+            arCtx.stroke();
+
+            arCtx.beginPath();
+            arCtx.moveTo(centerX - 50, centerY);
+            arCtx.lineTo(centerX + 50, centerY);
+            arCtx.moveTo(centerX, centerY - 50);
+            arCtx.lineTo(centerX, centerY + 50);
+            arCtx.stroke();
+
+            arCtx.restore();
+        }
+
+        // Selección de tatuaje
+        function selectTattoo(tattooId) {
+            const tattoo = tattooDesigns.find(t => t.id === tattooId);
+            if (tattoo) {
+                ARState.currentTattoo = tattoo;
+                
+                // Cargar imagen
+                ARState.tattooImage = new Image();
+                ARState.tattooImage.onload = function() {
+                    console.log('Imagen del tatuaje cargada:', tattoo.name);
+                };
+                ARState.tattooImage.onerror = function() {
+                    console.error('Error cargando imagen:', tattoo.imageUrl);
+                    // Usar placeholder si la imagen no carga
+                    createPlaceholderImage();
+                };
+                ARState.tattooImage.src = tattoo.imageUrl;
+
+                // Actualizar UI
+                document.querySelectorAll('.portfolio-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                event.target.closest('.portfolio-item').classList.add('active');
+
+                updateTattooPosition();
+            }
+        }
+
+        function createPlaceholderImage() {
+            // Crear imagen placeholder
+            const canvas = document.createElement('canvas');
+            canvas.width = 200;
+            canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = '#333';
+            ctx.fillRect(0, 0, 200, 200);
+            ctx.fillStyle = '#666';
+            ctx.font = '20px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(ARState.currentTattoo.name, 100, 100);
+            
+            ARState.tattooImage = new Image();
+            ARState.tattooImage.src = canvas.toDataURL();
+        }
+
+        // Filtrado del portfolio
+        function filterPortfolio(style) {
+            const items = portfolioGrid.querySelectorAll('.portfolio-item');
+            items.forEach(item => {
+                if (style === 'all' || item.dataset.style === style) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Actualizar botones de filtro
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Controles AR
+        function adjustTattooPosition(deltaX, deltaY) {
+            ARState.position.x += deltaX;
+            ARState.position.y += deltaY;
+        }
+
+        function updateTattooSize(value) {
+            ARState.size = parseInt(value);
+        }
+
+        function updateTattooRotation(value) {
+            ARState.rotation = parseInt(value);
+        }
+
+        function updateTattooOpacity(value) {
+            ARState.opacity = parseInt(value);
+        }
+
+        function toggleTattooVisibility() {
+            ARState.visible = !ARState.visible;
+        }
+
+        function selectSkinTone(color) {
+            ARState.skinTone = color;
+            document.querySelectorAll('.skin-tone').forEach(tone => {
+                tone.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function updateTattooPosition() {
+            const bodyPart = document.getElementById('bodyPart').value;
+            ARState.bodyPart = bodyPart;
+
+            const positions = {
+                brazo: { x: 0, y: -50 },
+                pierna: { x: 0, y: 30 },
+                pecho: { x: 0, y: -80 },
+                espalda: { x: 0, y: 0 },
+                muneca: { x: 0, y: 60 }
+            };
+
+            ARState.position = positions[bodyPart] || { x: 0, y: 0 };
+        }
+
+        // Captura de foto AR
+        function captureARPhoto() {
+            if (!ARState.active) {
+                alert('Primero activa la cámara AR');
+                return;
+            }
+
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCanvas.width = arCanvas.width;
+            tempCanvas.height = arCanvas.height;
+
+            tempCtx.drawImage(arVideo, 0, 0);
+            if (ARState.currentTattoo && ARState.visible && ARState.tattooImage) {
+                tempCtx.save();
+                tempCtx.translate(arCanvas.width / 2 + ARState.position.x, arCanvas.height / 2 + ARState.position.y);
+                tempCtx.rotate(ARState.rotation * Math.PI / 180);
+                tempCtx.globalAlpha = ARState.opacity / 100;
+                const imgSize = ARState.size * 2;
+                tempCtx.drawImage(ARState.tattooImage, -imgSize/2, -imgSize/2, imgSize, imgSize);
+                tempCtx.restore();
+            }
+
+            const link = document.createElement('a');
+            link.download = `tattoo-ar-${Date.now()}.png`;
+            link.href = tempCanvas.toDataURL();
+            link.click();
+
+            alert('📸 Foto AR capturada y descargada!');
+        }
+
+        // Funciones para agregar nuevas imágenes
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    addNewTattoo({
+                        name: `Nuevo Tatuaje ${tattooDesigns.length + 1}`,
+                        style: "personalizado",
+                        imageUrl: e.target.result,
+                        description: "Tatuaje personalizado agregado por el usuario"
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Intenta remover fondo de imagen remota usando canvas.
+        // Si la imagen no permite CORS o falla, devolvemos la URL original como fallback.
+        async function removeBackgroundFromUrl(url) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.crossOrigin = 'Anonymous';
+                img.onload = () => {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.naturalWidth;
+                        canvas.height = img.naturalHeight;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        const data = imageData.data;
+
+                        // Calcular color de fondo promedio muestreando las cuatro esquinas
+                        const w = canvas.width, h = canvas.height;
+                        function sample(x, y) {
+                            const i = (y * w + x) * 4;
+                            return [data[i], data[i + 1], data[i + 2]];
+                        }
+                        const samples = [sample(0, 0), sample(w - 1, 0), sample(0, h - 1), sample(w - 1, h - 1)];
+                        const bg = samples.reduce((acc, s) => [acc[0] + s[0], acc[1] + s[1], acc[2] + s[2]], [0, 0, 0]).map(c => c / samples.length);
+
+                        // Umbral de similitud (ajustable)
+                        const threshold = 100; // 0-441 (max distancia euclidiana)
+
+                        for (let i = 0; i < data.length; i += 4) {
+                            const dr = data[i] - bg[0];
+                            const dg = data[i + 1] - bg[1];
+                            const db = data[i + 2] - bg[2];
+                            const dist = Math.sqrt(dr * dr + dg * dg + db * db);
+                            if (dist < threshold) {
+                                // Hacer transparente
+                                data[i + 3] = 0;
+                            }
+                        }
+
+                        ctx.putImageData(imageData, 0, 0);
+                        const result = canvas.toDataURL('image/png');
+                        resolve(result);
+                    } catch (err) {
+                        // Probablemente falla por CORS; devolvemos la URL original
+                        console.warn('removeBackgroundFromUrl: fallback to original URL due to', err);
+                        resolve(url);
+                    }
+                };
+                img.onerror = () => {
+                    resolve(url);
+                };
+                img.src = url;
+            });
+        }
+
+        async function addImageFromUrl() {
+            const urlEl = document.getElementById('imageUrl');
+            const url = urlEl ? urlEl.value.trim() : '';
+            if (url) {
+                // Procesar la imagen para intentar remover fondo sin bloquear si falla
+                const processed = await removeBackgroundFromUrl(url);
+                addNewTattoo({
+                    name: `Tatuaje desde URL ${tattooDesigns.length + 1}`,
+                    style: "personalizado",
+                    imageUrl: processed,
+                    description: "Tatuaje cargado desde URL externa"
+                });
+                if (urlEl) urlEl.value = '';
+            } else {
+                alert('Por favor ingresa una URL válida');
+            }
+        }
+
+        function addNewTattoo(tattooData) {
+            const newTattoo = {
+                id: tattooDesigns.length + 1,
+                ...tattooData
+            };
+            tattooDesigns.push(newTattoo);
+            loadPortfolio();
+            alert('✅ Nuevo tatuaje agregado al portfolio!');
+        }
+
+        function resetAR() {
+            ARState.position = { x: 0, y: 0 };
+            ARState.size = 100;
+            ARState.rotation = 0;
+            ARState.opacity = 80;
+            ARState.visible = true;
+            
+            document.getElementById('tattooSize').value = 100;
+            document.getElementById('tattooRotation').value = 0;
+            document.getElementById('tattooOpacity').value = 80;
+            updateTattooPosition();
+        }
+
+        // Inicializar la aplicación
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

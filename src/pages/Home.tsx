@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { FaPaintBrush, FaUserTie } from "react-icons/fa";
+import { FaPaintBrush, FaUserTie, FaVrCardboard } from "react-icons/fa";
 import heroImage from "@/assets/hero-tattoo.jpg";
 import { useTranslation } from "react-i18next";
 import HomeHeader from "@/components/HomeHeader";
@@ -62,7 +62,7 @@ const Home: React.FC = () => {
         <p className="text-lg mb-8 text-center text-[hsl(var(--muted-foreground))] font-semibold">
           {t("homepage.subtitle")}
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
           <button
             className="group rounded-xl shadow-lg p-8 flex flex-col items-center transition-transform hover:scale-105 focus:outline-none border"
             style={{
@@ -98,6 +98,26 @@ const Home: React.FC = () => {
             <span className="text-sm text-black opacity-80 text-center">
               {t("homepage.crmDesc")}
             </span>
+          </button>
+          <button
+            className="group rounded-2xl shadow-2xl p-6 flex items-center justify-center transition-transform hover:scale-105 focus:outline-none border"
+            style={{
+              background: "linear-gradient(180deg, #00f2a2, #00e6c3)",
+              color: "#000",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
+              borderColor: "rgba(0,0,0,0.08)",
+              minHeight: '220px',
+              width: '100%'
+            }}
+            onClick={() => window.open('/realidad-aumentada.html', '_blank')}
+          >
+            <div className="w-full text-center flex flex-col items-center justify-center">
+              <div className="rounded-full mb-3 p-3 bg-transparent group-hover:scale-110 transform transition-transform duration-300">
+                <FaVrCardboard className="text-5xl text-black mb-0 group-hover:animate-bounce" />
+              </div>
+              <span className="text-2xl text-black font-semibold mb-1 block">Realidad Aumentada</span>
+              <span className="text-sm text-black opacity-90 text-center block">No imagines tu tatuaje. Vívelo.</span>
+            </div>
           </button>
         </div>
       </div>

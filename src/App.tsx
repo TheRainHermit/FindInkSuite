@@ -40,6 +40,9 @@ const NotFound = React.lazy(() => import("./pages/NotFound"));
 const TattooVision = React.lazy(
   () => import("./pages/FindInk_TattooVision/Index")
 );
+const RealidadAumentada = React.lazy(
+  () => import("./pages/Realidad_Aumentada/Index")
+);
 const LoginForm = React.lazy(() => import("./components/LoginForm"));
 
 const GlobalError = () => {
@@ -91,6 +94,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/tattoovision" element={<TattooVision />} />
+                <Route path="/realidad-aumentada" element={<RealidadAumentada />} />
                 {/* CRM protegido */}
                 <Route path="/crm" element={<ProtectedCRM />}>
                   <Route element={<Layout />}>
